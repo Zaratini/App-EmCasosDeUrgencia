@@ -6,8 +6,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.CircleBuilder;
 import javafx.scene.shape.Rectangle;
 
 // CLASSE RESPONSÁVEL POR MONTAR AS LEGENDAS DAS TELAS DA APLICAÇÃO
