@@ -188,8 +188,8 @@ public class ComponenteLegenda {
  
         labelVermelho.setText("VOLTAR");
         labelVerde.setText("COMO AGIR");
-        labelAmarelo.setText("PAUSE");
-        labelAzul.setText("PLAY");
+        labelAmarelo.setText("STOP");
+        labelAzul.setText("PLAY / PAUSE");
 
         labelVerde.setStyle("-fx-font-size: 15px;-fx-font-weight: bold;-fx-text-fill: black;-fx-background-color: transparent; -fx-padding:3 10 3 5;");
         labelVermelho.setStyle("-fx-font-size: 15px;-fx-font-weight: bold;-fx-text-fill: black;-fx-background-color: transparent; -fx-padding:3 10 3 5;");

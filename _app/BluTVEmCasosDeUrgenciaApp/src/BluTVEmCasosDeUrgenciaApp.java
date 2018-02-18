@@ -15,6 +15,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import sun.audio.AudioPlayer;
 
 /**
@@ -329,7 +330,17 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
                 
                 }
                 
+                else if (ivVideo.getMediaPlayer().getStatus()== MediaPlayer.Status.PLAYING){
+                        
+                        ivVideo.getMediaPlayer().pause();
+                }  
+                
                 else if (ivVideo.getMediaPlayer().getStatus()== MediaPlayer.Status.PAUSED){
+                        
+                        ivVideo.getMediaPlayer().play();
+                }
+                
+                else if (ivVideo.getMediaPlayer().getStatus()== MediaPlayer.Status.STOPPED){
                         
                         ivVideo.getMediaPlayer().play();
                 }  
@@ -343,11 +354,8 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
-            if (ivVideo.getMediaPlayer().getStatus()== MediaPlayer.Status.PLAYING){
-                        
-                        ivVideo.getMediaPlayer().pause();
-                }  
+             ivVideo.getMediaPlayer().pause();
+             ivVideo.getMediaPlayer().seek(Duration.seconds(1));
             }
         });
 
@@ -645,13 +653,10 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     //RESETA O PAINEL DA IMAGEM COMO PROCEDER E ATUALIZA COM A NOVA SELECIONADA
     private void resetaPainelImagem(){
         painelImagem.getChildren().clear();
-        painelImagem = imagemSobre.constroiPainelImagens(larguraTela, alturaTela, urgenciaAtual);
+        painelImagem = imagemSobre.constroiPainelImagens((larguraTela*1.4), (alturaTela*1.8), urgenciaAtual);
         
-        painelImagem.setLayoutY(alturaTela * 0.31);
-        painelImagem.setLayoutX(larguraTela * 0.14);
-        
-        painelImagem.setMinWidth(larguraTela * 0.32);
-        painelImagem.setMinHeight(alturaTela * 0.4);
+        painelImagem.setLayoutY(alturaTela * 0.02);
+        painelImagem.setLayoutX(larguraTela *0.002);
         
     }
     

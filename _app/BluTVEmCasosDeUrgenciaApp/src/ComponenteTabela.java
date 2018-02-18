@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -124,6 +125,30 @@ public class ComponenteTabela {
         table.setItems(FXCollections.observableArrayList(listaObjUrgencia));
         table.setOrientation(Orientation.HORIZONTAL);
         table.getSelectionModel().selectFirst();
+     
+        table.setCellFactory(param -> new ListCell<TabelaUrgenciasDados>() {
+            @Override
+            protected void updateItem(TabelaUrgenciasDados item, boolean empty) {
+                super.updateItem(item, empty);
+                
+                if(item != null){                            
+                    HBox box= new HBox();
+                    box.setSpacing(10) ;
+                    VBox vbox = new VBox();
+                    vbox.getChildren().add(new Label(item.getNome().getText()));
+
+                    //ImageView imageview = new ImageView();
+                    //imageview.setFitHeight(largura);
+                    //imageview.setFitWidth(altura);
+                    //imageview.setImage(new Image(TabelaUrgenciasDados.class.getResource("image").toString())); 
+
+                    box.getChildren().addAll(item.nome); 
+                    //SETTING ALL THE GRAPHICS COMPONENT FOR CELL
+                    setGraphic(box);
+                }
+            }
+        });
+               
         painelTabela.getChildren().addAll(table);
         painelTabelaFinal.getChildren().addAll(painelTabela);
 
