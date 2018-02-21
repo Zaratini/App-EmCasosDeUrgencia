@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 // CLASSE RESPONSÁVEL POR CONFIGURAR A TABELA
 public class TabelaUrgenciasDados {
 
+    int indexAtXML;
     HBox painelUrgencia = new HBox();
     VBox painelLabel = new VBox();
     ImageView image = new ImageView();
@@ -32,5 +33,19 @@ public class TabelaUrgenciasDados {
     public void setNome(Label nome) {
         this.nome = nome;
     }
-
+        public void setImage(ImageView image) {
+        this.image = image;
+    }
+    
+    public ImageView getImage() {
+        return this.image;
+    }
+    
+    public int getXMLIndex() {
+        return this.indexAtXML;
+    }
+    
+    public void setXMLIndex(int index) {
+        this.indexAtXML = index;
+    }
 }

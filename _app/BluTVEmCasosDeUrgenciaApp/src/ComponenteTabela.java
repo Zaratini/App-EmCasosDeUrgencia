@@ -41,8 +41,8 @@ public class ComponenteTabela {
         
 
         //Cria colunas
-        TableColumn painelUrgencia = new TableColumn<>();
-        painelUrgencia.setPrefWidth(largura * 0.14);
+        //TableColumn painelUrgencia = new TableColumn<>();
+        //painelUrgencia.setPrefWidth(largura * 0.14);
 
         //TableColumn descricao = new TableColumn<>();
         //descricao.setPrefWidth(largura * 0.48);
@@ -51,7 +51,7 @@ public class ComponenteTabela {
         //table.getColumns().addAll();
 
         //Associa Coluna com os metodos
-        painelUrgencia.setCellValueFactory(new PropertyValueFactory<>("painelUrgencia"));
+        //painelUrgencia.setCellValueFactory(new PropertyValueFactory<>("painelUrgencia"));
         //descricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
 
         //table.setStyle("-fx-background-insets: 0 0 -2 0, 0, 2, 3;\n"
@@ -114,8 +114,9 @@ public class ComponenteTabela {
             //descricao.setStyle("-fx-alignment: CENTER;-fx-text-fill: black;-fx-font:18pt 'Teresias';");
 
             TabelaUrgenciasDados tabela1 = new TabelaUrgenciasDados(painelUrgencia);
+            tabela1.setXMLIndex(i);
             //TabelaUrgenciasDados tabela1 = new TabelaUrgenciasDados(painelUrgencia);
-
+            
             tabela1.nome = nomeUrgencia;
 
             listaObjUrgencia.add(tabela1);
@@ -125,25 +126,26 @@ public class ComponenteTabela {
         table.setItems(FXCollections.observableArrayList(listaObjUrgencia));
         table.setOrientation(Orientation.HORIZONTAL);
         table.getSelectionModel().selectFirst();
-     
+        
         table.setCellFactory(param -> new ListCell<TabelaUrgenciasDados>() {
             @Override
             protected void updateItem(TabelaUrgenciasDados item, boolean empty) {
                 super.updateItem(item, empty);
                 
-                if(item != null){                            
+                if(item != null){
                     HBox box= new HBox();
                     box.setSpacing(10) ;
                     VBox vbox = new VBox();
                     vbox.getChildren().add(new Label(item.getNome().getText()));
+                    
+                    ImageView imageview = new ImageView();
+                    imageview.setImage(new Image(listaUrgenciasCompleta.get(item.getXMLIndex()).getImagem()));
+                    imageview.setFitHeight(altura * 0.12);
+                    imageview.setFitWidth(largura * 0.12);
 
-                    //ImageView imageview = new ImageView();
-                    //imageview.setFitHeight(largura);
-                    //imageview.setFitWidth(altura);
-                    //imageview.setImage(new Image(TabelaUrgenciasDados.class.getResource("image").toString())); 
-
-                    box.getChildren().addAll(item.nome); 
                     //SETTING ALL THE GRAPHICS COMPONENT FOR CELL
+                    box.getChildren().addAll(imageview, vbox); 
+                    
                     setGraphic(box);
                 }
             }

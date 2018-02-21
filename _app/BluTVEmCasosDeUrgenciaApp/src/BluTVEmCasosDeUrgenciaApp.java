@@ -130,6 +130,11 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         //PLANO PRINCIPAL RECBE A CENA
         planoPrincipalAplicacao.setScene(cena);
         planoPrincipalAplicacao.show();
+        
+        // Define a posição dos paineis.
+        // Os componentes possuem tamanho e posição dinâmicos, então, para que a posição
+        // seja calculada corretamente, primeiro os componentes devem ser exibidos.
+        ajustaPosicaoPaineis();
 
         // Conexão com o controle remoto
         blutvEventController = new BluTVRemoteDevice();
@@ -151,7 +156,6 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         //painelTitulo.setAlignment(Pos.CENTER);
 
         constroiTodosPaineis();
-        ajustaPosicaoPaineis();
         ajustaTamanhoPaineis();
 
         try {
@@ -189,11 +193,9 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         painelTitulo.setLayoutY(alturaTela * 0.15);
         painelTitulo.setLayoutX(larguraTela * 0.153);
         
-        //Configurações Antigas Legenda
-        //painelLegendaPrincipal.setLayoutX(larguraTela * 0.00);
-        //painelLegendaPrincipal.setLayoutY(alturaTela * 0.9);
-        
-        painelLegendaPrincipal.setLayoutX(larguraTela * 0.2);
+        // Legenda centralizada:(LARGUDA DA TELA - LARGURA DA LEGENDA) / 2
+        painelLegendaPrincipal.setLayoutX((larguraTela - painelLegendaPrincipal.getWidth()) / 2);
+        //painelLegendaPrincipal.setLayoutX(larguraTela * 0.2);
         painelLegendaPrincipal.setLayoutY(alturaTela * 0.9);
        
         painelTabela.setLayoutY(alturaTela * 0.45);
@@ -657,6 +659,11 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         
         painelImagem.setLayoutY(alturaTela * 0.02);
         painelImagem.setLayoutX(larguraTela *0.002);
+        
+        //painelImagem = imagemSobre.constroiPainelImagens((larguraTela*1.24), (alturaTela*1.36), urgenciaAtual);
+        
+        //painelImagem.setLayoutY(alturaTela * 0.09);
+        //painelImagem.setLayoutX(larguraTela *0.12);
         
     }
     
