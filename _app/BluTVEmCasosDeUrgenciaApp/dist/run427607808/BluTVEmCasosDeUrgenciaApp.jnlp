@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="BluTVEmCasosDeUrgenciaApp.jnlp">
+  <information>
+    <title>BluTVEmCasosDeUrgenciaApp</title>
+    <vendor>FelipeMoraes</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="BluTVEmCasosDeUrgenciaApp.jar" size="46556" download="eager" />
+    <jar href="lib\BluTVConfigurationData.jar" size="10038" download="eager" />
+    <jar href="lib\BluTVGenericXMLParser.jar" size="11109" download="eager" />
+    <jar href="lib\BluTVRemoteDevices.jar" size="14372" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="BluTVEmCasosDeUrgenciaApp" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="BluTVEmCasosDeUrgenciaApp"  name="BluTVEmCasosDeUrgenciaApp" />
+  <update check="always"/>
+</jnlp>

@@ -5,9 +5,6 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -32,11 +29,10 @@ public class ComponenteTabela {
         table = new ListView<>();
         //table.setTableMenuButtonVisible(true);
     
-        
-        table.setMinHeight(altura * 0.1);
-        table.setMinWidth(largura * 0.75);
+        table.setMinHeight(altura * 0.2);
+        table.setMinWidth(largura * 1.5);
 
-        table.setMaxHeight(altura * 0.2);
+        table.setMaxHeight(altura * 0.25);
         table.setMaxWidth(largura * 0.95);
         
 
@@ -86,41 +82,20 @@ public class ComponenteTabela {
 
 
         for (int i = 0; i < listaUrgenciasCompleta.size(); i++) {
-
-            Image teste = new Image(listaUrgenciasCompleta.get(i).getImagem());
-
-            ImageView imageItem = new ImageView();
-            imageItem.setImage(teste);
-            imageItem.setFitHeight(altura * 0.085);
-            imageItem.setFitWidth(largura * 0.070);
-
+            
             nomeUrgencia = new Label("\n " + listaUrgenciasCompleta.get(i).getNome());
             descricao = new Label(listaUrgenciasCompleta.get(i).getDescricao());
             descricao.setPrefWidth(largura);
             descricao.setWrapText(true);
-
-
+            
             painelLabel = new VBox();
             painelUrgencia = new HBox();
 
             painelLabel.getChildren().addAll(nomeUrgencia);
-            painelUrgencia.getChildren().addAll(imageItem);
-
-            //nomeUrgencia.setAlignment(Pos.CENTER);
-            //descricao.setAlignment(Pos.CENTER);
-
-
-            //nomeUrgencia.setStyle("-fx-alignment: CENTER;-fx-text-fill: black;-fx-font:24pt 'Teresias';");
-            //descricao.setStyle("-fx-alignment: CENTER;-fx-text-fill: black;-fx-font:18pt 'Teresias';");
-
             TabelaUrgenciasDados tabela1 = new TabelaUrgenciasDados(painelUrgencia);
             tabela1.setXMLIndex(i);
-            //TabelaUrgenciasDados tabela1 = new TabelaUrgenciasDados(painelUrgencia);
-            
             tabela1.nome = nomeUrgencia;
-
             listaObjUrgencia.add(tabela1);
-
         }
 
         table.setItems(FXCollections.observableArrayList(listaObjUrgencia));
@@ -140,11 +115,11 @@ public class ComponenteTabela {
                     
                     ImageView imageview = new ImageView();
                     imageview.setImage(new Image(listaUrgenciasCompleta.get(item.getXMLIndex()).getImagem()));
-                    imageview.setFitHeight(altura * 0.12);
-                    imageview.setFitWidth(largura * 0.12);
+                    imageview.setFitHeight(altura * 0.19);
+                    imageview.setFitWidth(largura * 0.16);
 
                     //SETTING ALL THE GRAPHICS COMPONENT FOR CELL
-                    box.getChildren().addAll(imageview, vbox); 
+                    box.getChildren().addAll(imageview); 
                     
                     setGraphic(box);
                 }
