@@ -29,10 +29,10 @@ public class ComponenteTabela {
         table = new ListView<>();
         //table.setTableMenuButtonVisible(true);
     
-        table.setMinHeight(altura * 0.2);
+        table.setMinHeight(altura * 0.25);
         table.setMinWidth(largura * 1.5);
 
-        table.setMaxHeight(altura * 0.25);
+        table.setMaxHeight(altura * 0.28);
         table.setMaxWidth(largura * 0.95);
         
 
@@ -115,8 +115,8 @@ public class ComponenteTabela {
                     
                     ImageView imageview = new ImageView();
                     imageview.setImage(new Image(listaUrgenciasCompleta.get(item.getXMLIndex()).getImagem()));
-                    imageview.setFitHeight(altura * 0.19);
-                    imageview.setFitWidth(largura * 0.16);
+                    imageview.setFitHeight(altura * 0.245);
+                    imageview.setFitWidth(largura * 0.165);
 
                     //SETTING ALL THE GRAPHICS COMPONENT FOR CELL
                     box.getChildren().addAll(imageview); 

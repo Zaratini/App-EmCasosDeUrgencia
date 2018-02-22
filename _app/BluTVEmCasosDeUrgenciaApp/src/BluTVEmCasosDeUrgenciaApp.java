@@ -10,10 +10,12 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -55,7 +57,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     //TÍTULO
     private Label labelTitulo = new Label();
     private final VBox painelTitulo = new VBox();
-    
+
     //LEGENDAS
     private VBox painelLegendaPrincipal = new VBox();
     private VBox painelLegendaComoProceder = new VBox();
@@ -194,14 +196,14 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     //AJUSTA A POSIÇÃO DOS PAINÉIS NA TELA
     private void ajustaPosicaoPaineis() {
 
-        painelTitulo.setLayoutY(alturaTela * 0.15);
+        painelTitulo.setLayoutY(alturaTela * 0.65);
         painelTitulo.setLayoutX(larguraTela * 0.153);
         
         // Legenda centralizada:(LARGUDA DA TELA - LARGURA DA LEGENDA) / 2
         painelLegendaPrincipal.setLayoutX((larguraTela - painelLegendaPrincipal.getWidth()) / 2);
         painelLegendaPrincipal.setLayoutY(alturaTela * 0.9);
        
-        painelTabela.setLayoutX(larguraTela * 0.14);
+        painelTabela.setLayoutX(larguraTela * 0.08);
         painelTabela.setLayoutY(alturaTela * 0.45);
         
         //painelRodape.setLayoutX(larguraTela * 0.8);
@@ -227,8 +229,8 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         painelLegendaPrincipal.setMinWidth(larguraTela * 0.05);
         painelLegendaPrincipal.setMinHeight(alturaTela * 0.06);
 
-        painelTabela.setMinWidth(larguraTela * 0.33);
-        painelTabela.setMinHeight(alturaTela * 0.4);
+       // painelTabela.setMinWidth(larguraTela * 0.33);
+        //painelTabela.setMinHeight(alturaTela * 0.4);
 
         //painelRodape.setMinWidth(larguraTela * 0.42);
         //painelRodape.setMinHeight(alturaTela * 0.05);
@@ -644,7 +646,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
                 
         grupoObjetosCenaPrincipal.getChildren().clear();
         planoFundo = imagem.getImage("image02.jpg", larguraTela, alturaTela, false);
-        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelTitulo, painelLegendaVideo, painelVideo, painelRodape);
+        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelLegendaVideo, painelVideo, painelRodape);
         
 
     }
@@ -656,11 +658,12 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     }
     
     private void getNomeUrgencia(){
-     
+        
         labelTitulo.setText(tabela.table.getSelectionModel().getSelectedItem().getNome().getText());
-        labelTitulo.setStyle("-fx-font-weight: bold; -fx-text-fill: rgb(35,158,163);-fx-font-size: 70px;");
+        labelTitulo.setFont(Font.font("Trebuchet MS",40));
+        labelTitulo.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
         painelTitulo.setAlignment(Pos.CENTER);
-         
+        
     }
     
     //RESETA O PAINEL DA IMAGEM COMO PROCEDER E ATUALIZA COM A NOVA SELECIONADA
