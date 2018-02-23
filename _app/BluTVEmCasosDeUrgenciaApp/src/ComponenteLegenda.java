@@ -7,7 +7,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
 // CLASSE RESPONSÁVEL POR MONTAR AS LEGENDAS DAS TELAS DA APLICAÇÃO
 public class ComponenteLegenda {
@@ -19,13 +18,12 @@ public class ComponenteLegenda {
     public ComponenteLegenda() {
         iniciaComponentes();
     }
-    private ImageView setasCimaBaixo;
+    
     private ImageView setasEsqDir;
     private final ComponenteConfiguradorImagens imagem = new ComponenteConfiguradorImagens();
 
     private void iniciaComponentes() {
-
-        setasCimaBaixo = imagem.getImage("image11.png", 36, 14, true);
+        
         setasEsqDir = imagem.getImage("image12.png", 36, 14, true);
     }
 

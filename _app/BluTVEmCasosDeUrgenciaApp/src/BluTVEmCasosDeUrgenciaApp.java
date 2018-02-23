@@ -188,8 +188,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     private void preparaTabelaComUrgencias(){
          tabela.recebeTodasUrgencias();
          tabela.table.getSelectionModel().selectFirst();
-         getNomeUrgencia();
-         
+         getNomeUrgencia(); 
          
     }
           
@@ -203,7 +202,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         painelLegendaPrincipal.setLayoutX((larguraTela - painelLegendaPrincipal.getWidth()) / 2);
         painelLegendaPrincipal.setLayoutY(alturaTela * 0.9);
        
-        painelTabela.setLayoutX(larguraTela * 0.08);
+        painelTabela.setLayoutX(larguraTela * 0.05);
         painelTabela.setLayoutY(alturaTela * 0.45);
         
         //painelRodape.setLayoutX(larguraTela * 0.8);
@@ -212,7 +211,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         painelLegendaComoProceder.setLayoutX(larguraTela * 0.35);
         painelLegendaComoProceder.setLayoutY(alturaTela * 0.9);
         
-        painelVideo.setLayoutY(alturaTela * 0.3);
+        painelVideo.setLayoutY(alturaTela * 0.25);
         painelVideo.setLayoutX(larguraTela * 0.22);
         
         painelLegendaVideo.setLayoutX(larguraTela * 0.3);
@@ -379,14 +378,23 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                int menuSize = tabela.table.getItems().size();
+                int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
                 if (telaAtual == telaPrincipal) {
-                    tabela.table.getSelectionModel().selectPrevious();
-                    getNomeUrgencia();
-                    audioNavigation.somSelecao();
-                }
+                     if(selectedIndex >= (menuSize - 1))
+                     {
+                         tabela.table.getSelectionModel().select(menuSize - 1);
+                     }
+                     else
+                     {
+                         tabela.table.getSelectionModel().selectPrevious();
+                     }
+                     
+                     getNomeUrgencia();
+                     audioNavigation.somSelecao();
+                 }
             }
         });
-
     }
 
     @Override
@@ -414,13 +422,23 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                
+            int menuSize = tabela.table.getItems().size();
+            int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
+                
                if (telaAtual == telaPrincipal) {
-  
-                    tabela.table.getSelectionModel().selectNext();
+                    if(selectedIndex >= (menuSize - 1))
+                    {
+                        tabela.table.getSelectionModel().select(0);
+                    }
+                    else
+                    {
+                        tabela.table.getSelectionModel().selectNext();
+                    }
+                   
                     getNomeUrgencia();
-                    
                     audioNavigation.somSelecao();
-//                    tabela.setas.escalaBaixo();
+//                  tabela.setas.escalaBaixo();   
                 }
             }
         });
@@ -658,8 +676,11 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     }
     
     private void getNomeUrgencia(){
+      
+        int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
+        String name = tabela.table.getSelectionModel().getSelectedItem().getNome().getText();
         
-        labelTitulo.setText(tabela.table.getSelectionModel().getSelectedItem().getNome().getText());
+        labelTitulo.setText(name);
         labelTitulo.setFont(Font.font("Trebuchet MS",40));
         labelTitulo.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
         painelTitulo.setAlignment(Pos.CENTER);
