@@ -71,11 +71,6 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     private final ComponenteTabela tabela = new ComponenteTabela();
     private VBox painelTabela = new VBox();
     
-    //PAINEL RODAPE
-    //private ComponenteRodape rodape = new ComponenteRodape();
-    //private HBox painelRodape = new HBox();
-    //private String urgencia = "";
-    
     //PAINEL IMAGENS
     private ComponenteImagem imagemSobre = new ComponenteImagem();
     private HBox painelImagem = new HBox();
@@ -152,12 +147,6 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         alturaTela = dimensoesMonitor.getDimensionHeight();
         planoFundo = imagem.getImage("image0.jpg", larguraTela, alturaTela, false);
         
-        //planoFundo.setStyle("-fx-opacity: 1;");
- 
-        //labelTitulo.setText("EM CASOS DE URGÊNCIA");
-        //labelTitulo.setStyle("-fx-font-weight: bold; -fx-text-fill: rgb(35,158,163);-fx-font-size: 40px;");
-        //painelTitulo.setAlignment(Pos.CENTER);
-
         constroiTodosPaineis();
         ajustaTamanhoPaineis();
 
@@ -204,9 +193,6 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
        
         painelTabela.setLayoutX(larguraTela * 0.05);
         painelTabela.setLayoutY(alturaTela * 0.45);
-        
-        //painelRodape.setLayoutX(larguraTela * 0.8);
-        //painelRodape.setLayoutY(alturaTela * 0.905);
         
         painelLegendaComoProceder.setLayoutX(larguraTela * 0.35);
         painelLegendaComoProceder.setLayoutY(alturaTela * 0.9);
@@ -685,7 +671,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         if (selectedIndex == 0){
             labelUrgencia.setText(name);
             labelUrgencia.setFont(Font.font("Trebuchet MS",40));
-            labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: black");
+            labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
             painelNomelUrgencia.setAlignment(Pos.CENTER);
             
             
@@ -693,14 +679,14 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         else if (selectedIndex == 1){
             labelUrgencia.setText(name);
             labelUrgencia.setFont(Font.font("Trebuchet MS",40));
-            labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: blue");
+            labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
             painelNomelUrgencia.setAlignment(Pos.CENTER);
     
         }
         else if (selectedIndex == 2){
             labelUrgencia.setText(name);
             labelUrgencia.setFont(Font.font("Trebuchet MS",40));
-            labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: red");
+            labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
             painelNomelUrgencia.setAlignment(Pos.CENTER);
     
         }
