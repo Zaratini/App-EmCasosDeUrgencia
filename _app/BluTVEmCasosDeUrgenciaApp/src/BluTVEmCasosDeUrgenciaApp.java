@@ -1,6 +1,5 @@
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -10,7 +9,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
@@ -19,7 +17,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import sun.audio.AudioPlayer;
+
 
 /**
  *
@@ -217,9 +215,6 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
        // painelTabela.setMinWidth(larguraTela * 0.33);
         //painelTabela.setMinHeight(alturaTela * 0.4);
 
-        //painelRodape.setMinWidth(larguraTela * 0.42);
-        //painelRodape.setMinHeight(alturaTela * 0.05);
-        
         painelLegendaComoProceder.setMinWidth(larguraTela * 0.05);
         painelLegendaComoProceder.setMinHeight(alturaTela * 0.06);
         
@@ -667,41 +662,43 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
       
         int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
         String name = tabela.table.getSelectionModel().getSelectedItem().getNome().getText();
+        labelUrgencia.setFont(Font.font("Trebuchet MS",30));
+        labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #313232");
         
         if (selectedIndex == 0){
             labelUrgencia.setText(name);
-            labelUrgencia.setFont(Font.font("Trebuchet MS",40));
-            labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
+            //labelUrgencia.setFont(Font.font("Trebuchet MS",40));
+            //labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
             painelNomelUrgencia.setAlignment(Pos.CENTER);
             
             
         } 
         else if (selectedIndex == 1){
             labelUrgencia.setText(name);
-            labelUrgencia.setFont(Font.font("Trebuchet MS",40));
-            labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
+            //labelUrgencia.setFont(Font.font("Trebuchet MS",40));
+            //labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
             painelNomelUrgencia.setAlignment(Pos.CENTER);
     
         }
         else if (selectedIndex == 2){
             labelUrgencia.setText(name);
-            labelUrgencia.setFont(Font.font("Trebuchet MS",40));
-            labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
+            //labelUrgencia.setFont(Font.font("Trebuchet MS",40));
+            //labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
             painelNomelUrgencia.setAlignment(Pos.CENTER);
     
         }
         
         else if (selectedIndex == 3){
             labelUrgencia.setText(name);
-            labelUrgencia.setFont(Font.font("Trebuchet MS",40));
-            labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
+            //labelUrgencia.setFont(Font.font("Trebuchet MS",40));
+            //labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
             painelNomelUrgencia.setAlignment(Pos.CENTER);
     
         }
            else if (selectedIndex == 4){
             labelUrgencia.setText(name);
-            labelUrgencia.setFont(Font.font("Trebuchet MS",40));
-            labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
+            //labelUrgencia.setFont(Font.font("Trebuchet MS",40));
+            //labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
             painelNomelUrgencia.setAlignment(Pos.CENTER);
     
         }
