@@ -129,7 +129,7 @@ public class ComponenteLegenda {
         labelVermelho.setStyle("-fx-font-size: 15px;-fx-font-weight: bold;-fx-text-fill: black;-fx-background-color: transparent; -fx-padding:3 10 3 5;");
 
         painelBotoes.getChildren().addAll(circleAzul, labelAzul,circleVermelho, labelVermelho);
-        painelBotoes.setAlignment(Pos.CENTER_LEFT);
+        painelBotoes.setAlignment(Pos.CENTER);
 
         painelLegendaComoProceder.setStyle("-fx-background-color: rgba(255,255,255,0.5);-fx-background-radius: 30 30 30 30");
         painelLegendaComoProceder.setPadding(new Insets(17));
@@ -196,7 +196,7 @@ public class ComponenteLegenda {
         
         
         painelBotoes.getChildren().addAll(circleAzul,labelAzul,circleAmarelo,labelAmarelo,circleVerde, labelVerde,circleVermelho, labelVermelho);
-        painelBotoes.setAlignment(Pos.CENTER_LEFT);
+        painelBotoes.setAlignment(Pos.CENTER);
         
         painelLegendaVideo.setStyle("-fx-background-color: rgba(255,255,255,0.5);-fx-background-radius: 30 30 30 30");
         painelLegendaVideo.setPadding(new Insets(17));

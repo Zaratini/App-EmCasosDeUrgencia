@@ -55,7 +55,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     //Nome Urgencia
     private Label labelUrgencia = new Label();
     private final VBox painelNomelUrgencia = new VBox();
-
+    
     //LEGENDAS
     private VBox painelLegendaPrincipal = new VBox();
     private VBox painelLegendaComoProceder = new VBox();
@@ -159,7 +159,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     //CONSTRÓI TODOS OS PAINÉIS
     private void constroiTodosPaineis() {
 
-        painelNomelUrgencia.getChildren().addAll(labelUrgencia);
+        painelNomelUrgencia.getChildren().addAll(labelUrgencia);  
         painelLegendaPrincipal = legenda.constroiPainelLegendaPrincipal(larguraTela, alturaTela);
         
         painelTabela = tabela.constroiPainelTabela((double) larguraTela, (double) alturaTela);
@@ -175,15 +175,15 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     private void preparaTabelaComUrgencias(){
          tabela.recebeTodasUrgencias();
          tabela.table.getSelectionModel().selectFirst();
-         getNomeUrgencia(); 
+         getUrgenciaListView();
          
     }
           
     //AJUSTA A POSIÇÃO DOS PAINÉIS NA TELA
     private void ajustaPosicaoPaineis() {
 
-        painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
-        painelNomelUrgencia.setLayoutX(larguraTela * 0.153);
+       painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
+       painelNomelUrgencia.setLayoutX(larguraTela * 0.153);
         
         // Legenda centralizada:(LARGUDA DA TELA - LARGURA DA LEGENDA) / 2
         painelLegendaPrincipal.setLayoutX((larguraTela - painelLegendaPrincipal.getWidth()) / 2);
@@ -279,7 +279,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
                     getUrgenciaSelecionada();
                     invocaTelaComoProceder();
                     tabela.table.getSelectionModel().select(0);
-
+                    
                     telaAtual = telaComoProceder;                
                 }   
                 else if(telaAtual == telaVideo){
@@ -373,7 +373,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
                          tabela.table.getSelectionModel().selectPrevious();
                      }
                      
-                     getNomeUrgencia();
+                     getUrgenciaListView();
                      audioNavigation.somSelecao();
                  }
             }
@@ -419,7 +419,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
                         tabela.table.getSelectionModel().selectNext();
                     }
                    
-                    getNomeUrgencia();
+                    getUrgenciaListView();
                     audioNavigation.somSelecao();
 //                  tabela.setas.escalaBaixo();   
                 }
@@ -615,12 +615,13 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     
     //INVOCA A TELA: COMO PROCEDER
     private void invocaTelaComoProceder() {
-                
-        resetaPainelImagem();
+
+        resetaPainelImagem();   
         grupoObjetosCenaPrincipal.getChildren().clear();
         planoFundo = imagem.getImage("image01.jpg", larguraTela, alturaTela, false);
-        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelLegendaComoProceder, painelImagem);
-
+        nomeUrgencia();
+        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo,painelNomelUrgencia, painelLegendaComoProceder, painelImagem);
+        
     }
 
     //INVOCA A TELA PRINCIPAL
@@ -628,10 +629,11 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
 
         ajustaPosicaoPaineis();
         ajustaTamanhoPaineis();
-        getNomeUrgencia();
+        getUrgenciaListView();
 
         grupoObjetosCenaPrincipal.getChildren().clear();
         planoFundo = imagem.getImage("image0.jpg", larguraTela, alturaTela, false);
+        painelNomelUrgencia.setStyle("-fx-background-color: transparent");
         grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelNomelUrgencia, painelLegendaPrincipal, painelTabela);
 
     }
@@ -640,16 +642,16 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     private void invocaTelaVideo() {
         
         resetaPainelVideo();
-
+        
         ivVideo = videoSobre.retornaVideo(urgenciaAtual, (larguraTela*0.75), (alturaTela*0.55));
         ivVideo.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
         painelVideo.getChildren().add(ivVideo);
-                
+           
         grupoObjetosCenaPrincipal.getChildren().clear();
         planoFundo = imagem.getImage("image02.jpg", larguraTela, alturaTela, false);
-        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelLegendaVideo, painelVideo);
+        nomeUrgencia();
+        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo,painelNomelUrgencia,painelLegendaVideo, painelVideo);
         
-
     }
     
     //RECUPERA A URGÊNCIA SELECIONADA NA TABELA
@@ -658,53 +660,62 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         urgenciaAtual = urgencia;
     }
     
-    private void getNomeUrgencia(){
-      
+    private void getUrgenciaListView(){
+        
         int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
         String name = tabela.table.getSelectionModel().getSelectedItem().getNome().getText();
         labelUrgencia.setFont(Font.font("Trebuchet MS",30));
         labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #313232");
-        
+
         if (selectedIndex == 0){
-            labelUrgencia.setText(name);
-            //labelUrgencia.setFont(Font.font("Trebuchet MS",40));
-            //labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
+            labelUrgencia.setText(name); 
             painelNomelUrgencia.setAlignment(Pos.CENTER);
-            
-            
+
         } 
         else if (selectedIndex == 1){
-            labelUrgencia.setText(name);
-            //labelUrgencia.setFont(Font.font("Trebuchet MS",40));
-            //labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
+            labelUrgencia.setText(name); 
             painelNomelUrgencia.setAlignment(Pos.CENTER);
     
         }
         else if (selectedIndex == 2){
             labelUrgencia.setText(name);
-            //labelUrgencia.setFont(Font.font("Trebuchet MS",40));
-            //labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
             painelNomelUrgencia.setAlignment(Pos.CENTER);
     
         }
         
         else if (selectedIndex == 3){
             labelUrgencia.setText(name);
-            //labelUrgencia.setFont(Font.font("Trebuchet MS",40));
-            //labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
             painelNomelUrgencia.setAlignment(Pos.CENTER);
     
         }
            else if (selectedIndex == 4){
             labelUrgencia.setText(name);
-            //labelUrgencia.setFont(Font.font("Trebuchet MS",40));
-            //labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
             painelNomelUrgencia.setAlignment(Pos.CENTER);
-    
-        }
-            
+        }      
     }
     
+    
+    private void nomeUrgencia(){
+        
+        //Style Nome urgência
+        labelUrgencia.setFont(Font.font("Trebuchet MS",60));
+        labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #313232");
+        labelUrgencia.setAlignment(Pos.CENTER);
+        
+        
+        //Ajusta Posicao do Painel
+        painelNomelUrgencia.setLayoutY(alturaTela * 0.05);
+        painelNomelUrgencia.setLayoutX(larguraTela * 0.153);
+        
+        
+        //Ajusta Tamanho do Painel
+        painelNomelUrgencia.setMinWidth(larguraTela * 0.6);
+        painelNomelUrgencia.setMinHeight(alturaTela * 0.009);
+     
+        //Style do painel
+        //painelNomelUrgencia.setStyle("-fx-background-color: #4cb1bd; -fx-background-radius: 30 30 30 30");
+    }
+           
     //RESETA O PAINEL DA IMAGEM COMO PROCEDER E ATUALIZA COM A NOVA SELECIONADA
     private void resetaPainelImagem(){
         painelImagem.getChildren().clear();
