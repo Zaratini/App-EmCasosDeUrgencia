@@ -27,7 +27,6 @@ public class ComponenteTabela {
         painelTabela.setMinHeight(altura);
         
         table = new ListView<>();
-        //table.setTableMenuButtonVisible(true);
     
         table.setMinHeight(altura * 0.25);
         table.setMinWidth(largura * 1.5);
@@ -35,25 +34,7 @@ public class ComponenteTabela {
         table.setMaxHeight(altura * 0.28);
         table.setMaxWidth(largura * 0.95);
         
-
-        //Cria colunas
-        //TableColumn painelUrgencia = new TableColumn<>();
-        //painelUrgencia.setPrefWidth(largura * 0.14);
-
-        //TableColumn descricao = new TableColumn<>();
-        //descricao.setPrefWidth(largura * 0.48);
-      
-        //table.getColumns().addAll(painelUrgencia);
-        //table.getColumns().addAll();
-
-        //Associa Coluna com os metodos
-        //painelUrgencia.setCellValueFactory(new PropertyValueFactory<>("painelUrgencia"));
-        //descricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-
-        //table.setStyle("-fx-background-insets: 0 0 -2 0, 0, 2, 3;\n"
-        //        + "-fx-opacity: 0.9;");
-
-        table.getStylesheets().add("file:///C:/blutv/channels/ch45/resident/applications/app18/data/data2.css");
+       table.getStylesheets().add("file:///C:/blutv/channels/ch45/resident/applications/app18/data/data2.css");
 
         painelTabela.getChildren().addAll(table);
         painelTabelaFinal.getChildren().addAll(painelTabela);

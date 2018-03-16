@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,72 +19,70 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-
 /**
  *
  * @author Felipe
- * @author Rodrigo Zaratini 
+ * @author Rodrigo Zaratini
  */
-
 // CLASSE PRINCIPAL DA APLICAÇÃO EM CASOS DE URGÊNCIA
 public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemoteDeviceListener {
 
     //CONTROLE VIRTUAL
     private BluTVRemoteDevice blutvEventController;
-    
+
     //Marcadores responsaveis pelas transições dos paineis
     private final int cima, baixo = 2;
     int contaLinhas = 0;
     int esquerda = 1, direita = 2;
     int contadorSelecao = 1;
-    
+
     //Esse grupo armazenara todos os painéis e objetos que irão compor a cena
     private final Group grupoObjetosCenaPrincipal = new Group();
-    
+
     //Variaveis responsáveis por armazenar os dados, como, largura e altura do monitor do usuario
     private double larguraTela, alturaTela;
-    
+
     //Visualizador de imagens, que apresentara o fundo da aplicação
     private ImageView planoFundo;
-    
+
     //Cria uma cena que recebera todos painéis (cena principal)
     private Scene cena;
-    
+
     //Cria-se um objeto que tem todas informações necessárias sobre o monitor do usuario
     private UtilitarioDimensoesMonitor dimensoesMonitor;
-    
+
     //Nome Urgencia
     private Label labelUrgencia = new Label();
     private final VBox painelNomelUrgencia = new VBox();
-    
+
     //LEGENDAS
     private VBox painelLegendaPrincipal = new VBox();
     private VBox painelLegendaComoProceder = new VBox();
     private VBox painelLegendaVideo = new VBox();
-    
+
     //URGÊNCIA SELECIONADA NA TABELA
-    Urgencia urgenciaAtual= new Urgencia();
+    Urgencia urgenciaAtual = new Urgencia();
     int scroll;
-    
+
     //PAINEL TABELA
     private final ComponenteTabela tabela = new ComponenteTabela();
     private VBox painelTabela = new VBox();
-    
+
     //PAINEL IMAGENS
     private ComponenteImagem imagemSobre = new ComponenteImagem();
     private HBox painelImagem = new HBox();
-    
+
     //PAINEL VÍDEO
     private ComponenteConfiguradorVideo videoSobre = new ComponenteConfiguradorVideo();
     private HBox painelVideo = new HBox();
     private MediaView ivVideo = null;
-    
+
     //COMPONENTES
     private final ComponenteConfiguradorImagens imagem = new ComponenteConfiguradorImagens();
     private final ComponenteLegenda legenda = new ComponenteLegenda();
     private final ComponenteAudio audioNavigation = new ComponenteAudio();
     private final ComponenteControlador controler = new ComponenteControlador();
-    
+
     //MARCADORES DAS TELAS
     private int telaAtual, telaPrincipal, telaComoProceder, telaVideo;
 
@@ -97,24 +96,22 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
 
     @Override
     public void start(Stage planoPrincipalAplicacao) throws Exception {
-        
+
         Class c = this.getClass();          // if you want to use the current class
 
-        System.out.println("Package: "+c.getPackage()+"\nClass: "+c.getSimpleName()+"\nFull Identifier: "+c.getName());
-        
+        System.out.println("Package: " + c.getPackage() + "\nClass: " + c.getSimpleName() + "\nFull Identifier: " + c.getName());
+
         planoPrincipalAplicacao.initStyle(StageStyle.UNDECORATED);
 
         //INICIA CONTROLE REMOTO
         //java.awt.Desktop.getDesktop().open(new File("C:\\blutv\\platform\\remotedevicesmanager\\BluTVRemoteDevicesManager.jar"));
-        
         //Método que configura o layout da aplicação
         iniciaLayoutPrincipal();
-        
+
         //INICIA OS MARCADORES DE CADA TELA
         telaAtual = telaPrincipal = 1;
         telaComoProceder = 2;
         telaVideo = 3;
-
 
         //Adiciona Objetos e painéis que irão compor a aplicação  no  grupo
         grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelNomelUrgencia, painelLegendaPrincipal, painelTabela);
@@ -126,7 +123,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         //PLANO PRINCIPAL RECBE A CENA
         planoPrincipalAplicacao.setScene(cena);
         planoPrincipalAplicacao.show();
-        
+
         // Define a posição dos paineis.
         // Os componentes possuem tamanho e posição dinâmicos, então, para que a posição
         // seja calculada corretamente, primeiro os componentes devem ser exibidos.
@@ -144,7 +141,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         larguraTela = dimensoesMonitor.getDimensionWidth();
         alturaTela = dimensoesMonitor.getDimensionHeight();
         planoFundo = imagem.getImage("image0.jpg", larguraTela, alturaTela, false);
-        
+
         constroiTodosPaineis();
         ajustaTamanhoPaineis();
 
@@ -159,45 +156,44 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     //CONSTRÓI TODOS OS PAINÉIS
     private void constroiTodosPaineis() {
 
-        painelNomelUrgencia.getChildren().addAll(labelUrgencia);  
+        painelNomelUrgencia.getChildren().addAll(labelUrgencia);
         painelLegendaPrincipal = legenda.constroiPainelLegendaPrincipal(larguraTela, alturaTela);
-        
+
         painelTabela = tabela.constroiPainelTabela((double) larguraTela, (double) alturaTela);
         preparaTabelaComUrgencias();
-        
-        //painelRodape = rodape.constroiPainelRodape(larguraTela, alturaTela);
+
         painelLegendaComoProceder = legenda.constroiPainelLegendaComoProceder(larguraTela, alturaTela);
         painelLegendaVideo = legenda.constroiPainelLegendaVideo(larguraTela, alturaTela);
-        
+
     }
-    
+
     //PREPARA A TABELA DAS URGÊNCIAS
-    private void preparaTabelaComUrgencias(){
-         tabela.recebeTodasUrgencias();
-         tabela.table.getSelectionModel().selectFirst();
-         getUrgenciaListView();
-         
+    private void preparaTabelaComUrgencias() {
+        tabela.recebeTodasUrgencias();
+        tabela.table.getSelectionModel().selectFirst();
+        getUrgenciaListView();
+
     }
-          
+
     //AJUSTA A POSIÇÃO DOS PAINÉIS NA TELA
     private void ajustaPosicaoPaineis() {
 
-       painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
-       painelNomelUrgencia.setLayoutX(larguraTela * 0.153);
+        //painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
+        //painelNomelUrgencia.setLayoutX(larguraTela * 0.153);
         
         // Legenda centralizada:(LARGUDA DA TELA - LARGURA DA LEGENDA) / 2
         painelLegendaPrincipal.setLayoutX((larguraTela - painelLegendaPrincipal.getWidth()) / 2);
         painelLegendaPrincipal.setLayoutY(alturaTela * 0.9);
-       
+
         painelTabela.setLayoutX(larguraTela * 0.05);
         painelTabela.setLayoutY(alturaTela * 0.45);
-        
+
         painelLegendaComoProceder.setLayoutX(larguraTela * 0.35);
         painelLegendaComoProceder.setLayoutY(alturaTela * 0.9);
-        
+
         painelVideo.setLayoutY(alturaTela * 0.25);
         painelVideo.setLayoutX(larguraTela * 0.22);
-        
+
         painelLegendaVideo.setLayoutX(larguraTela * 0.3);
         painelLegendaVideo.setLayoutY(alturaTela * 0.9);
 
@@ -212,20 +208,17 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         painelLegendaPrincipal.setMinWidth(larguraTela * 0.05);
         painelLegendaPrincipal.setMinHeight(alturaTela * 0.06);
 
-       // painelTabela.setMinWidth(larguraTela * 0.33);
-        //painelTabela.setMinHeight(alturaTela * 0.4);
-
         painelLegendaComoProceder.setMinWidth(larguraTela * 0.05);
         painelLegendaComoProceder.setMinHeight(alturaTela * 0.06);
-        
+
         painelVideo.setMinWidth(larguraTela * 0.3);
         painelVideo.setMinHeight(alturaTela * 0.4);
-        
+
         painelLegendaVideo.setMinWidth(larguraTela * 0.05);
         painelLegendaVideo.setMinHeight(alturaTela * 0.06);
 
     }
-    
+
     //MÉTODOS DOS BOTÕES DO CONTROLE REMOTO
     @Override
     public void BluTVRemoteDeviceButtonExit(RemoteDeviceEvent event) {
@@ -246,15 +239,13 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
             public void run() {
                 if (telaAtual == telaPrincipal) {
                     System.exit(1);
-                }
-                else if (telaAtual == telaComoProceder) {
+                } else if (telaAtual == telaComoProceder) {
                     telaAtual = telaPrincipal;
-                    invocaTelaPrincipal();                    
-                }
-                else if (telaAtual == telaVideo) {
+                    invocaTelaPrincipal();
+                } else if (telaAtual == telaVideo) {
                     telaAtual = telaPrincipal;
                     resetaPainelVideo();
-                    invocaTelaPrincipal();                    
+                    invocaTelaPrincipal();
                 }
             }
         });
@@ -264,7 +255,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -274,15 +265,14 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
                 if (telaAtual == telaPrincipal) {
                     getUrgenciaSelecionada();
                     invocaTelaComoProceder();
                     tabela.table.getSelectionModel().select(0);
-                    
-                    telaAtual = telaComoProceder;                
-                }   
-                else if(telaAtual == telaVideo){
+
+                    telaAtual = telaComoProceder;
+                } else if (telaAtual == telaVideo) {
                     resetaPainelVideo();
                     invocaTelaComoProceder();
                     telaAtual = telaComoProceder;
@@ -297,36 +287,29 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
                 if (telaAtual == telaPrincipal) {
-                    
+
                     getUrgenciaSelecionada();
                     invocaTelaVideo();
                     tabela.table.getSelectionModel().select(0);
 
                     telaAtual = telaVideo;
-                }
-                else if(telaAtual == telaComoProceder){
-                    
+                } else if (telaAtual == telaComoProceder) {
+
                     invocaTelaVideo();
                     telaAtual = telaVideo;
-                
+
+                } else if (ivVideo.getMediaPlayer().getStatus() == MediaPlayer.Status.PLAYING) {
+
+                    ivVideo.getMediaPlayer().pause();
+                } else if (ivVideo.getMediaPlayer().getStatus() == MediaPlayer.Status.PAUSED) {
+
+                    ivVideo.getMediaPlayer().play();
+                } else if (ivVideo.getMediaPlayer().getStatus() == MediaPlayer.Status.STOPPED) {
+
+                    ivVideo.getMediaPlayer().play();
                 }
-                
-                else if (ivVideo.getMediaPlayer().getStatus()== MediaPlayer.Status.PLAYING){
-                        
-                        ivVideo.getMediaPlayer().pause();
-                }  
-                
-                else if (ivVideo.getMediaPlayer().getStatus()== MediaPlayer.Status.PAUSED){
-                        
-                        ivVideo.getMediaPlayer().play();
-                }
-                
-                else if (ivVideo.getMediaPlayer().getStatus()== MediaPlayer.Status.STOPPED){
-                        
-                        ivVideo.getMediaPlayer().play();
-                }  
             }
         });
 
@@ -337,18 +320,18 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-             ivVideo.getMediaPlayer().pause();
-             ivVideo.getMediaPlayer().seek(Duration.seconds(1));
+                ivVideo.getMediaPlayer().pause();
+                ivVideo.getMediaPlayer().seek(Duration.seconds(1));
             }
         });
 
     }
-    
+
     @Override
     public void BluTVRemoteDeviceButtonUp(RemoteDeviceEvent rde) {
         Platform.runLater(new Runnable() {
             @Override
-            public void run() {                
+            public void run() {
             }
         });
 
@@ -359,23 +342,20 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
-            int menuSize = tabela.table.getItems().size();
-            int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
-                
+
+                int menuSize = tabela.table.getItems().size();
+                int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
+
                 if (telaAtual == telaPrincipal) {
-                     if(selectedIndex == 0)
-                     {
-                         tabela.table.getSelectionModel().select(menuSize - 1);
-                     }
-                     else
-                     {
-                         tabela.table.getSelectionModel().selectPrevious();
-                     }
-                     
-                     getUrgenciaListView();
-                     audioNavigation.somSelecao();
-                 }
+                    if (selectedIndex == 0) {
+                        tabela.table.getSelectionModel().select(menuSize - 1);
+                    } else {
+                        tabela.table.getSelectionModel().selectPrevious();
+                    }
+
+                    getUrgenciaListView();
+                    audioNavigation.somSelecao();
+                }
             }
         });
     }
@@ -385,16 +365,16 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
                 if (telaAtual == telaPrincipal) {
-                    
+
                     getUrgenciaSelecionada();
                     invocaTelaVideo();
                     tabela.table.getSelectionModel().select(0);
 
                     telaAtual = telaVideo;
                 }
-                
+
             }
         });
 
@@ -405,20 +385,17 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
-            int menuSize = tabela.table.getItems().size();
-            int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
-                
-               if (telaAtual == telaPrincipal) {
-                    if(selectedIndex >= (menuSize - 1))
-                    {
+
+                int menuSize = tabela.table.getItems().size();
+                int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
+
+                if (telaAtual == telaPrincipal) {
+                    if (selectedIndex >= (menuSize - 1)) {
                         tabela.table.getSelectionModel().select(0);
-                    }
-                    else
-                    {
+                    } else {
                         tabela.table.getSelectionModel().selectNext();
                     }
-                   
+
                     getUrgenciaListView();
                     audioNavigation.somSelecao();
 //                  tabela.setas.escalaBaixo();   
@@ -443,7 +420,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -453,7 +430,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -463,7 +440,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -473,7 +450,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -483,7 +460,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -493,7 +470,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                 
+
             }
         });
     }
@@ -504,7 +481,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -515,7 +492,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -526,7 +503,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -537,7 +514,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -548,7 +525,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -559,7 +536,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -569,7 +546,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -579,7 +556,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -598,7 +575,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
@@ -608,20 +585,20 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                
+
             }
         });
     }
-    
+
     //INVOCA A TELA: COMO PROCEDER
     private void invocaTelaComoProceder() {
 
-        resetaPainelImagem();   
+        resetaPainelImagem();
         grupoObjetosCenaPrincipal.getChildren().clear();
         planoFundo = imagem.getImage("image01.jpg", larguraTela, alturaTela, false);
         nomeUrgencia();
-        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo,painelNomelUrgencia, painelLegendaComoProceder, painelImagem);
-        
+        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelNomelUrgencia, painelLegendaComoProceder, painelImagem);
+
     }
 
     //INVOCA A TELA PRINCIPAL
@@ -637,111 +614,112 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelNomelUrgencia, painelLegendaPrincipal, painelTabela);
 
     }
-    
+
     //INVOCA A TELA DO VÍDEO    
     private void invocaTelaVideo() {
-        
+
         resetaPainelVideo();
-        
-        ivVideo = videoSobre.retornaVideo(urgenciaAtual, (larguraTela*0.75), (alturaTela*0.55));
+
+        ivVideo = videoSobre.retornaVideo(urgenciaAtual, (larguraTela * 0.75), (alturaTela * 0.55));
         ivVideo.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
         painelVideo.getChildren().add(ivVideo);
-           
+
         grupoObjetosCenaPrincipal.getChildren().clear();
         planoFundo = imagem.getImage("image02.jpg", larguraTela, alturaTela, false);
         nomeUrgencia();
-        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo,painelNomelUrgencia,painelLegendaVideo, painelVideo);
-        
+        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelNomelUrgencia, painelLegendaVideo, painelVideo);
+
     }
-    
+
     //RECUPERA A URGÊNCIA SELECIONADA NA TABELA
-    private void getUrgenciaSelecionada(){
+    private void getUrgenciaSelecionada() {
         Urgencia urgencia = controler.getUrgenciaSelecionada(tabela.table.getSelectionModel().getSelectedItem().getNome().getText());
         urgenciaAtual = urgencia;
     }
-    
-    private void getUrgenciaListView(){
-        
+
+    private void getUrgenciaListView() {
+
         int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
         String name = tabela.table.getSelectionModel().getSelectedItem().getNome().getText();
-        labelUrgencia.setFont(Font.font("Trebuchet MS",30));
-        labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #313232");
+        labelUrgencia.setFont(Font.font("Trebuchet MS", 30));
+        labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #625d5e");
 
-        if (selectedIndex == 0){
-            labelUrgencia.setText(name); 
-            painelNomelUrgencia.setAlignment(Pos.CENTER);
-
-        } 
-        else if (selectedIndex == 1){
-            labelUrgencia.setText(name); 
-            painelNomelUrgencia.setAlignment(Pos.CENTER);
-    
-        }
-        else if (selectedIndex == 2){
+        if (selectedIndex == 0) {
             labelUrgencia.setText(name);
             painelNomelUrgencia.setAlignment(Pos.CENTER);
-    
-        }
+            painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
+            painelNomelUrgencia.setLayoutX(larguraTela * - 0.21 );
         
-        else if (selectedIndex == 3){
+            //painelNomelUrgencia.setLayoutX(larguraTela * 0.153);
+        
+        } else if (selectedIndex == 1) {
             labelUrgencia.setText(name);
             painelNomelUrgencia.setAlignment(Pos.CENTER);
-    
+            painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
+            painelNomelUrgencia.setLayoutX(larguraTela * - 0.03 );
+
+        } else if (selectedIndex == 2) {
+            labelUrgencia.setText(name);
+            painelNomelUrgencia.setAlignment(Pos.CENTER);
+            painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
+            painelNomelUrgencia.setLayoutX(larguraTela * 0.14 );
+
+        } else if (selectedIndex == 3) {
+            labelUrgencia.setText(name);
+            painelNomelUrgencia.setAlignment(Pos.CENTER);
+            painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
+            painelNomelUrgencia.setLayoutX(larguraTela * 0.32 );
+
+        } else if (selectedIndex == 4) {
+            labelUrgencia.setText(name);
+            painelNomelUrgencia.setAlignment(Pos.CENTER);
+            painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
+            painelNomelUrgencia.setLayoutX(larguraTela * 0.50 );
         }
-           else if (selectedIndex == 4){
-            labelUrgencia.setText(name);
-            painelNomelUrgencia.setAlignment(Pos.CENTER);
-        }      
     }
-    
-    
-    private void nomeUrgencia(){
-        
+
+    private void nomeUrgencia() {
         //Style Nome urgência
-        labelUrgencia.setFont(Font.font("Trebuchet MS",60));
-        labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #313232");
-        labelUrgencia.setAlignment(Pos.CENTER);
-        
-        
-        //Ajusta Posicao do Painel
-        painelNomelUrgencia.setLayoutY(alturaTela * 0.05);
-        painelNomelUrgencia.setLayoutX(larguraTela * 0.153);
-        
-        
+        labelUrgencia.setFont(Font.font("Trebuchet MS", 80));
+        labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #625d5e");
+
+        //Ajusta Posicao do Painel    
+        painelNomelUrgencia.setLayoutX((larguraTela - painelNomelUrgencia.getWidth()) / 2);
+        painelNomelUrgencia.setLayoutY(alturaTela * 0.01);
+
         //Ajusta Tamanho do Painel
-        painelNomelUrgencia.setMinWidth(larguraTela * 0.6);
-        painelNomelUrgencia.setMinHeight(alturaTela * 0.009);
-     
+        //painelNomelUrgencia.setMinWidth(larguraTela * 0.6);
+        //painelNomelUrgencia.setMinHeight(alturaTela * 0.009);
+        
         //Style do painel
-        //painelNomelUrgencia.setStyle("-fx-background-color: #4cb1bd; -fx-background-radius: 30 30 30 30");
-    }
-           
-    //RESETA O PAINEL DA IMAGEM COMO PROCEDER E ATUALIZA COM A NOVA SELECIONADA
-    private void resetaPainelImagem(){
-        painelImagem.getChildren().clear();
-        painelImagem = imagemSobre.constroiPainelImagens((larguraTela*1.4), (alturaTela*1.8), urgenciaAtual);
-        
-        painelImagem.setLayoutY(alturaTela * 0.02);
-        painelImagem.setLayoutX(larguraTela *0.002);
-        
-        //painelImagem = imagemSobre.constroiPainelImagens((larguraTela*1.24), (alturaTela*1.36), urgenciaAtual);
-        
-        //painelImagem.setLayoutY(alturaTela * 0.09);
-        //painelImagem.setLayoutX(larguraTela *0.12);
-        
+        //painelNomelUrgencia.setStyle("-fx-background-color: #4cb1bd; -fx-background-radius: 30 30 30 30");        
     }
     
+    //RESETA O PAINEL DA IMAGEM COMO PROCEDER E ATUALIZA COM A NOVA SELECIONADA
+    private void resetaPainelImagem() {
+        painelImagem.getChildren().clear();  
+        //painelImagem = imagemSobre.constroiPainelImagens((larguraTela * 1.4), (alturaTela * 1.8), urgenciaAtual);
+        // painelImagem.setLayoutY(alturaTela * 0.02);
+        //painelImagem.setLayoutX(larguraTela * 0.002);
+
+        painelImagem = imagemSobre.constroiPainelImagens((larguraTela), (alturaTela), urgenciaAtual);
+        painelImagem.setLayoutY(alturaTela * 0.25);
+        painelImagem.setLayoutX(larguraTela *0.12);
+        
+        painelImagem.setStyle("-fx-background-color: rgba(5,143,163,0.5); -fx-background-radius: 30 30 30 30");
+    }
+
     //RESETA O PAINEL DO VÍDEO E ATUALIZA COM O NOVO DE ACORDO COM A URGÊNCIA SELECIONADA
-    private void resetaPainelVideo(){
+    private void resetaPainelVideo() {
 
         painelVideo.getChildren().clear();
-        
-        if(ivVideo != null){
+
+        if (ivVideo != null) {
             ivVideo.getMediaPlayer().stop();
         }
-        
+
     }
-        
+
     public void BluTVRemoteDeviceButtonApp(RemoteDeviceEvent rde) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
