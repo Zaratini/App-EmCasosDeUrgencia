@@ -178,9 +178,6 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     //AJUSTA A POSIÇÃO DOS PAINÉIS NA TELA
     private void ajustaPosicaoPaineis() {
 
-        //painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
-        //painelNomelUrgencia.setLayoutX(larguraTela * 0.153);
-        
         // Legenda centralizada:(LARGUDA DA TELA - LARGURA DA LEGENDA) / 2
         painelLegendaPrincipal.setLayoutX((larguraTela - painelLegendaPrincipal.getWidth()) / 2);
         painelLegendaPrincipal.setLayoutY(alturaTela * 0.9);
@@ -649,9 +646,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
             painelNomelUrgencia.setAlignment(Pos.CENTER);
             painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
             painelNomelUrgencia.setLayoutX(larguraTela * - 0.21 );
-        
-            //painelNomelUrgencia.setLayoutX(larguraTela * 0.153);
-        
+       
         } else if (selectedIndex == 1) {
             labelUrgencia.setText(name);
             painelNomelUrgencia.setAlignment(Pos.CENTER);
@@ -703,10 +698,10 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         //painelImagem.setLayoutX(larguraTela * 0.002);
 
         painelImagem = imagemSobre.constroiPainelImagens((larguraTela), (alturaTela), urgenciaAtual);
-        painelImagem.setLayoutY(alturaTela * 0.25);
+        painelImagem.setLayoutY(alturaTela * 0.30);
         painelImagem.setLayoutX(larguraTela *0.12);
         
-        painelImagem.setStyle("-fx-background-color: rgba(5,143,163,0.5); -fx-background-radius: 30 30 30 30");
+        painelImagem.setStyle("-fx-background-color: rgba(131,191,208,0.5); -fx-background-radius: 30 30 30 30");
     }
 
     //RESETA O PAINEL DO VÍDEO E ATUALIZA COM O NOVO DE ACORDO COM A URGÊNCIA SELECIONADA
