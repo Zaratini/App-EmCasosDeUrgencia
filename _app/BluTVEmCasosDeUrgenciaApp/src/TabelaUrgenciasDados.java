@@ -29,14 +29,14 @@ public class TabelaUrgenciasDados {
     public Label getNome() {
         return nome;
     }
-
+    
     public void setNome(Label nome) {
         this.nome = nome;
     }
         public void setImage(ImageView image) {
         this.image = image;
     }
-    
+      
     public ImageView getImage() {
         return this.image;
     }

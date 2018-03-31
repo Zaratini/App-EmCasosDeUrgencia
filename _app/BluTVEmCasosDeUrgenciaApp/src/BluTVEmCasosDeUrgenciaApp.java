@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -75,6 +76,8 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     //PAINEL VÍDEO
     private ComponenteConfiguradorVideo videoSobre = new ComponenteConfiguradorVideo();
     private HBox painelVideo = new HBox();
+    private HBox painelVideoDescricao = new HBox();
+    private Label descricaoUrgencia = new Label();
     private MediaView ivVideo = null;
 
     //COMPONENTES
@@ -188,18 +191,21 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         painelLegendaComoProceder.setLayoutX(larguraTela * 0.35);
         painelLegendaComoProceder.setLayoutY(alturaTela * 0.9);
 
-        painelVideo.setLayoutY(alturaTela * 0.25);
-        painelVideo.setLayoutX(larguraTela * 0.22);
+        painelVideo.setLayoutY(alturaTela * 0.30);
+        painelVideo.setLayoutX(larguraTela * 0.12);
 
         painelLegendaVideo.setLayoutX(larguraTela * 0.3);
         painelLegendaVideo.setLayoutY(alturaTela * 0.9);
-
+        
+        painelVideoDescricao.setLayoutY(alturaTela * 0.30);
+        painelVideoDescricao.setLayoutX(larguraTela * 0.50);
+        
     }
 
     //AJUSTA O TAMANHO DOS PAINÉIS NA TELA
     private void ajustaTamanhoPaineis() {
 
-        painelNomelUrgencia.setMinWidth(larguraTela * 0.7);
+        painelNomelUrgencia.setMinWidth(larguraTela * 0.3);
         painelNomelUrgencia.setMinHeight(alturaTela * 0.15);
 
         painelLegendaPrincipal.setMinWidth(larguraTela * 0.05);
@@ -210,7 +216,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
 
         painelVideo.setMinWidth(larguraTela * 0.3);
         painelVideo.setMinHeight(alturaTela * 0.4);
-
+       
         painelLegendaVideo.setMinWidth(larguraTela * 0.05);
         painelLegendaVideo.setMinHeight(alturaTela * 0.06);
 
@@ -616,15 +622,18 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     private void invocaTelaVideo() {
 
         resetaPainelVideo();
-
-        ivVideo = videoSobre.retornaVideo(urgenciaAtual, (larguraTela * 0.75), (alturaTela * 0.55));
+        nomeUrgencia();
+        descricaoUrgencia();
+       
+        ivVideo = videoSobre.retornaVideo(urgenciaAtual, (larguraTela * 0.65), (alturaTela * 0.35));
         ivVideo.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
         painelVideo.getChildren().add(ivVideo);
-
+       
+        painelVideoDescricao.getChildren().add(descricaoUrgencia);
+      
         grupoObjetosCenaPrincipal.getChildren().clear();
         planoFundo = imagem.getImage("image02.jpg", larguraTela, alturaTela, false);
-        nomeUrgencia();
-        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelNomelUrgencia, painelLegendaVideo, painelVideo);
+        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelNomelUrgencia, painelLegendaVideo, painelVideo,painelVideoDescricao);
 
     }
 
@@ -635,86 +644,83 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     }
 
     private void getUrgenciaListView() {
-
-        int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
-        String name = tabela.table.getSelectionModel().getSelectedItem().getNome().getText();
+      
+        getUrgenciaSelecionada();
+        labelUrgencia.setText(urgenciaAtual.getNome());
         labelUrgencia.setFont(Font.font("Trebuchet MS", 30));
         labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #625d5e");
 
-        if (selectedIndex == 0) {
-            labelUrgencia.setText(name);
-            painelNomelUrgencia.setAlignment(Pos.CENTER);
+        if (urgenciaAtual.getIdUrgencia() == 0) {
             painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
-            painelNomelUrgencia.setLayoutX(larguraTela * - 0.21 );
+            painelNomelUrgencia.setLayoutX(larguraTela * 0.14);
        
-        } else if (selectedIndex == 1) {
-            labelUrgencia.setText(name);
-            painelNomelUrgencia.setAlignment(Pos.CENTER);
-            painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
-            painelNomelUrgencia.setLayoutX(larguraTela * - 0.03 );
+        } else if (urgenciaAtual.getIdUrgencia() == 1) {
+            painelNomelUrgencia.setLayoutY(alturaTela);
+            painelNomelUrgencia.setLayoutX(larguraTela);
 
-        } else if (selectedIndex == 2) {
-            labelUrgencia.setText(name);
-            painelNomelUrgencia.setAlignment(Pos.CENTER);
-            painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
-            painelNomelUrgencia.setLayoutX(larguraTela * 0.14 );
+        } else if (urgenciaAtual.getIdUrgencia() == 2) {
+            painelNomelUrgencia.setLayoutY(alturaTela);
+            painelNomelUrgencia.setLayoutX(larguraTela);
 
-        } else if (selectedIndex == 3) {
-            labelUrgencia.setText(name);
-            painelNomelUrgencia.setAlignment(Pos.CENTER);
-            painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
-            painelNomelUrgencia.setLayoutX(larguraTela * 0.32 );
+        } else if (urgenciaAtual.getIdUrgencia()== 3) {
+            painelNomelUrgencia.setLayoutY(alturaTela);
+            painelNomelUrgencia.setLayoutX(larguraTela);
 
-        } else if (selectedIndex == 4) {
-            labelUrgencia.setText(name);
-            painelNomelUrgencia.setAlignment(Pos.CENTER);
-            painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
-            painelNomelUrgencia.setLayoutX(larguraTela * 0.50 );
+        } else if (urgenciaAtual.getIdUrgencia() == 4) {
+            painelNomelUrgencia.setLayoutY(alturaTela);
+            painelNomelUrgencia.setLayoutX(larguraTela);
         }
     }
 
     private void nomeUrgencia() {
+ 
+        //Ajusta Posicao do Painel    
+        painelNomelUrgencia.setLayoutX((larguraTela - painelNomelUrgencia.getWidth()) / 2);
+        painelNomelUrgencia.setLayoutY(alturaTela * 0.1);
+        painelNomelUrgencia.setStyle("-fx-background-color: rgba(131,191,208,0.5); -fx-background-radius: 30 30 30 30");
+        
         //Style Nome urgência
         labelUrgencia.setFont(Font.font("Trebuchet MS", 80));
         labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #625d5e");
-
-        //Ajusta Posicao do Painel    
-        painelNomelUrgencia.setLayoutX((larguraTela - painelNomelUrgencia.getWidth()) / 2);
-        painelNomelUrgencia.setLayoutY(alturaTela * 0.01);
-
-        //Ajusta Tamanho do Painel
-        //painelNomelUrgencia.setMinWidth(larguraTela * 0.6);
-        //painelNomelUrgencia.setMinHeight(alturaTela * 0.009);
-        
-        //Style do painel
-        //painelNomelUrgencia.setStyle("-fx-background-color: #4cb1bd; -fx-background-radius: 30 30 30 30");        
+        labelUrgencia.setPadding(new Insets(10,10,10,10));
+        labelUrgencia.setTextAlignment(TextAlignment.CENTER);
+       
     }
-    
+       
+    private void descricaoUrgencia(){
+        
+        descricaoUrgencia.setText(urgenciaAtual.getDescricao());
+        descricaoUrgencia.setFont(Font.font("Trebuchet MS", 20));
+        descricaoUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #625d5e");
+        descricaoUrgencia.setMaxWidth(400);
+        descricaoUrgencia.setWrapText(true);
+        descricaoUrgencia.setTextAlignment(TextAlignment.JUSTIFY);
+        descricaoUrgencia.setPadding(new Insets(10,10,200,10));
+    }
+               
     //RESETA O PAINEL DA IMAGEM COMO PROCEDER E ATUALIZA COM A NOVA SELECIONADA
     private void resetaPainelImagem() {
+        
         painelImagem.getChildren().clear();  
-        //painelImagem = imagemSobre.constroiPainelImagens((larguraTela * 1.4), (alturaTela * 1.8), urgenciaAtual);
-        // painelImagem.setLayoutY(alturaTela * 0.02);
-        //painelImagem.setLayoutX(larguraTela * 0.002);
-
         painelImagem = imagemSobre.constroiPainelImagens((larguraTela), (alturaTela), urgenciaAtual);
         painelImagem.setLayoutY(alturaTela * 0.30);
         painelImagem.setLayoutX(larguraTela *0.12);
-        
         painelImagem.setStyle("-fx-background-color: rgba(131,191,208,0.5); -fx-background-radius: 30 30 30 30");
+        
     }
 
     //RESETA O PAINEL DO VÍDEO E ATUALIZA COM O NOVO DE ACORDO COM A URGÊNCIA SELECIONADA
     private void resetaPainelVideo() {
 
         painelVideo.getChildren().clear();
+        painelVideoDescricao.getChildren().clear();
+        painelVideoDescricao.setStyle("-fx-background-color: rgba(131,191,208,0.5); -fx-background-radius: 30 30 30 30");
 
         if (ivVideo != null) {
             ivVideo.getMediaPlayer().stop();
-        }
-
+        }   
     }
-
+    
     public void BluTVRemoteDeviceButtonApp(RemoteDeviceEvent rde) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
