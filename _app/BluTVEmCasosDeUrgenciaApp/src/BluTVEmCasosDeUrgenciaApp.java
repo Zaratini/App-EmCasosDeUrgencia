@@ -205,7 +205,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     //AJUSTA O TAMANHO DOS PAINÉIS NA TELA
     private void ajustaTamanhoPaineis() {
 
-        painelNomelUrgencia.setMinWidth(larguraTela * 0.3);
+        painelNomelUrgencia.setMinWidth(larguraTela * 0.6);
         painelNomelUrgencia.setMinHeight(alturaTela * 0.15);
 
         painelLegendaPrincipal.setMinWidth(larguraTela * 0.05);
@@ -613,7 +613,6 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
 
         grupoObjetosCenaPrincipal.getChildren().clear();
         planoFundo = imagem.getImage("image0.jpg", larguraTela, alturaTela, false);
-        painelNomelUrgencia.setStyle("-fx-background-color: transparent");
         grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelNomelUrgencia, painelLegendaPrincipal, painelTabela);
 
     }
@@ -649,41 +648,40 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         labelUrgencia.setText(urgenciaAtual.getNome());
         labelUrgencia.setFont(Font.font("Trebuchet MS", 30));
         labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #625d5e");
+        painelNomelUrgencia.setStyle("-fx-background-color: transparent");
 
         if (urgenciaAtual.getIdUrgencia() == 0) {
-            painelNomelUrgencia.setLayoutY(alturaTela * 0.65);
+            painelNomelUrgencia.setLayoutY(alturaTela * 0.75);
             painelNomelUrgencia.setLayoutX(larguraTela * 0.14);
        
         } else if (urgenciaAtual.getIdUrgencia() == 1) {
-            painelNomelUrgencia.setLayoutY(alturaTela);
-            painelNomelUrgencia.setLayoutX(larguraTela);
+            painelNomelUrgencia.setLayoutY(alturaTela* 0.75);
+            painelNomelUrgencia.setLayoutX(larguraTela* 0.14);
 
         } else if (urgenciaAtual.getIdUrgencia() == 2) {
-            painelNomelUrgencia.setLayoutY(alturaTela);
-            painelNomelUrgencia.setLayoutX(larguraTela);
+            painelNomelUrgencia.setLayoutY(alturaTela* 0.75);
+            painelNomelUrgencia.setLayoutX(larguraTela* 0.14);
 
         } else if (urgenciaAtual.getIdUrgencia()== 3) {
-            painelNomelUrgencia.setLayoutY(alturaTela);
-            painelNomelUrgencia.setLayoutX(larguraTela);
+            painelNomelUrgencia.setLayoutY(alturaTela* 0.75);
+            painelNomelUrgencia.setLayoutX(larguraTela* 0.14);
 
         } else if (urgenciaAtual.getIdUrgencia() == 4) {
-            painelNomelUrgencia.setLayoutY(alturaTela);
-            painelNomelUrgencia.setLayoutX(larguraTela);
+            painelNomelUrgencia.setLayoutY(alturaTela* 0.75);
+            painelNomelUrgencia.setLayoutX(larguraTela* 0.14);
         }
     }
 
     private void nomeUrgencia() {
  
-        //Ajusta Posicao do Painel    
         painelNomelUrgencia.setLayoutX((larguraTela - painelNomelUrgencia.getWidth()) / 2);
         painelNomelUrgencia.setLayoutY(alturaTela * 0.1);
         painelNomelUrgencia.setStyle("-fx-background-color: rgba(131,191,208,0.5); -fx-background-radius: 30 30 30 30");
+        painelNomelUrgencia.setAlignment(Pos.CENTER);
         
-        //Style Nome urgência
         labelUrgencia.setFont(Font.font("Trebuchet MS", 80));
         labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #625d5e");
         labelUrgencia.setPadding(new Insets(10,10,10,10));
-        labelUrgencia.setTextAlignment(TextAlignment.CENTER);
        
     }
        
