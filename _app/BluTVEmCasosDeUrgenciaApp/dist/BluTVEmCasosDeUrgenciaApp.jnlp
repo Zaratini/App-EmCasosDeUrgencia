@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="BluTVEmCasosDeUrgenciaApp.jar" size="46168" download="eager" />
+    <jar href="BluTVEmCasosDeUrgenciaApp.jar" size="46463" download="eager" />
     <jar href="lib\BluTVConfigurationData.jar" size="10038" download="eager" />
     <jar href="lib\BluTVGenericXMLParser.jar" size="11109" download="eager" />
     <jar href="lib\BluTVRemoteDevices.jar" size="14372" download="eager" />
