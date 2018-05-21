@@ -1,0 +1,15 @@
+.list-view{
+    -fx-base: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-color: transparent;
+    -fx-list-cell-border-color: transparent;
+    -fx-list-header-border-color: red ;
+    -fx-padding: 10;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #4cb1bd;
+    -fx-text-fill: white;
+	
+
+}

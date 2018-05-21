@@ -1,0 +1,74 @@
+.button {
+    -fx-background-color:#064973;
+    -fx-padding: 0;   
+    -fx-border-color: transparent;
+ 
+    -fx-font-family: "Tiresias";
+    -fx-font-size: 16pt;
+    -fx-text-fill: #FFFFFF;
+   
+}
+
+.custom-text-area, .custom-text-area:focused{
+		-fx-opacity: 0.6;
+        -fx-background-color:#ffffff;;
+        -fx-background-insets:0;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-arrow, 
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+.textArea .scroll-bar:vertical:disabled {
+    -fx-opacity: 0;
+}
+.table-view *.scroll-bar:vertical *.increment-button,
+.table-view *.scroll-bar:vertical *.decrement-button {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.table-view *.scroll-bar:vertical *.increment-arrow, 
+.table-view *.scroll-bar:vertical *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+
+.table-view *.base{
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+.column-header-background { visibility: hidden; -fx-padding: -1em; }
+
+
+
+.table-row-cell:filled:selected:focused, 
+
+.table-row-cell:filled:selected {
+   
+    -fx-font-weight: bold;
+   -fx-background-color: linear-gradient(#064973, #064973);
+}
+
+
+

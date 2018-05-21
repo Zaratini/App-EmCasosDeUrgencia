@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<data>
+	<element id="urgencia">
+		<data
+            idUrgencia1="01"
+            nome1="Queimaduras"
+            imagem1="file:///C:/blutv/channels/ch45/resident/applications/app18/image/image1.png"
+            descricao1="A água e o óleo constituem invariavelmente, as duas principais causas de queimaduras acidentais em casa e pode ser extremamente grave em crianças.Eles são seguidos por causas físicas por objetos quentes, pratos, utensílios de cozinha, fogões, etc, o fogo queima, que para compreender os vestidos tendem a ser grandes e, finalmente queimaduras elétricas podem ser muito graves e associado lesões internas."
+			imgComoProceder1="C:/blutv/channels/ch45/resident/applications/app18/image/image6.png"
+			video1="file:///c:/blutv/channels/ch45/resident/applications/app18/video/video0.mp4"
+		/>
+        
+		<data
+            idUrgencia2="02"
+            nome2="Quedas"
+            imagem2="file:///c:/blutv/channels/ch45/resident/applications/app18/image/image2.png"
+            descricao2="Quedas são mais frequentes nas pessoas de idade que podem tropeçar num tapete ou escorregar e cair, entretanto, elas podem ocorrer em qualquer faixa de idade.Pesquisas comprovam que cerca de 90% dos acidentes domésticos são causados por quedas graves."
+			imgComoProceder2="C:/blutv/channels/ch45/resident/applications/app18/image/image7.png"
+			video2="file:///c:/blutv/channels/ch45/resident/applications/app18/video/video1.mp4"
+		/>
+		
+		<data
+            idUrgencia3="03"
+            nome3="Cortes"
+            imagem3="file:///c:/blutv/channels/ch45/resident/applications/app18/image/image3.png"
+            descricao3="Cortes são ferimentos que ocorrem com muita frequência,esse também pode ser considerado um dos tipos de acidentes domésticos mais comuns e que podem acometer riscos maiores para crianças. Deve-se evitar manter objetos pontudos e afiados ao alcance das crianças. Uma dica é procurar manter um local especificamente para isso e de forma organizada."
+			imgComoProceder3="C:/blutv/channels/ch45/resident/applications/app18/image/image8.png"
+			video3="file:///c:/blutv/channels/ch45/resident/applications/app18/video/video2.mp4"
+		/>
+		
+		<data
+            idUrgencia4="04"
+            nome4="Intoxicação"
+            imagem4="file:///c:/blutv/channels/ch45/resident/applications/app18/image/image4.png"
+            descricao4="É importante ter a conscientização que a intoxicação pode ser tanto alimentar quanto com produtos químicos e ocorre com maior frequência em crianças. Vale dizer que é fundamental que preste atenção nos alimentos ingeridos, mas principalmente, evitar deixar produtos químicos em ambientes fechados e longe de crianças e também de idosos que necessitam de maior atenção.Em todos os casos de intoxicação procure ajuda."
+			imgComoProceder4="C:/blutv/channels/ch45/resident/applications/app18/image/image9.png"
+			video4="file:///c:/blutv/channels/ch45/resident/applications/app18/video/video3.mp4"
+		/>
+		
+		<data
+            idUrgencia5="05"
+            nome5="Picadas e Mordidas"
+            imagem5="file:///c:/blutv/channels/ch45/resident/applications/app18/image/image5.png"
+            descricao5="Os médicos diagnosticam a maioria das mordidas e picadas falando com a pessoa e examinando-a. Se a ferida for profunda, são realizados exames de raios-X e outros estudos de diagnóstico por imagem para verificar a presença de dentes ou outros materiais estranhos ocultos. A forma mais eficaz de prevenir a infecção e a cicatrização é a limpeza e o devido cuidado da ferida, que deve ser feito o mais rápido possível."
+			imgComoProceder5="C:/blutv/channels/ch45/resident/applications/app18/image/image10.png"
+			video5="file:///c:/blutv/channels/ch45/resident/applications/app18/video/video4.mp4"
+		/>
+           
+	</element>
+
+
+</data>

@@ -1,0 +1,130 @@
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.table-view *.scroll-bar:horizontal *.increment-arrow, 
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+.textArea .scroll-bar:vertical:disabled {
+    -fx-opacity: 0;
+}
+.table-view *.scroll-bar:vertical *.increment-button,
+.table-view *.scroll-bar:vertical *.decrement-button {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.table-view *.scroll-bar:vertical *.increment-arrow, 
+.table-view *.scroll-bar:vertical *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+
+*.scroll-bar:vertical *.increment-arrow, 
+*.scroll-bar:vertical *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+    -fx-opacity: 0;
+}
+.text-area .scroll-bar {
+    -fx-skin: "org.acme.visual.NoOpScrollbarSkin";
+}
+
+.table-view *.base{
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+.column-header-background { visibility: hidden; -fx-padding: -1em; }
+
+
+.table-row-cell:focus{
+    
+    -fx-text-fill: red;
+}
+
+.table-row-cell:filled:selected:focused, 
+
+.table-row-cell:filled:selected {
+   
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#239ea3, #0aa1a4);  
+}
+
+
+
+
+
+
+
+
+#offer-box {
+    /*-fx-background-color: grey;
+    -fx-background-radius: 20;*/
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -2 0, 0, 2, 3;
+    -fx-background-radius: 20, 20, 20, 20;
+    -fx-opacity: 0.7;
+}
+
+
+#info-box {
+    /*-fx-background-color: grey;
+    -fx-background-radius: 20;*/
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -2 0, 0, 2, 3;
+    -fx-background-radius: 20, 20, 20, 20;
+    -fx-opacity: 0.7;
+}
+
+#header-warning{
+    -fx-background-color: #FFFF00, #EEEE00, #E3E300, #D4D400;
+    -fx-background-insets: 2 0 0 0, 0, 2, 3;
+    -fx-background-radius: 20 20 0 0;
+    -fx-opacity: 0.7;
+}
+
+#header-info{
+    -fx-background-color: #8282FF, #5454FF, #2C2CF8, #0000FF;
+    -fx-background-insets: 2 0 0 0, 0, 2, 3;
+    -fx-background-radius: 20 20 0 0;
+    -fx-opacity: 0.7;
+}
+                        
+#header-error{
+    -fx-background-color: #FF8383, #FF4D4D, #FF2222, #FF0000;
+    -fx-background-insets: 2 0 0 0, 0, 2, 3;
+    -fx-background-radius: 20 20 0 0;
+    -fx-opacity: 0.7;
+}
+
+#navbar-button{
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -2 0, 0, 2, 3;
+    -fx-background-radius: 5, 5, 5, 5;
+}
+
+#button-bar-item{
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -2 0, 0, 2, 3;
+    -fx-background-radius: 5, 5, 5, 5;
+}
