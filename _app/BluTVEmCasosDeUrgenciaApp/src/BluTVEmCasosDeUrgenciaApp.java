@@ -29,13 +29,8 @@ import javafx.util.Duration;
 public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemoteDeviceListener {
 
     //CONTROLE VIRTUAL
-    private BluTVRemoteDevice blutvEventController;
 
-    //Marcadores responsaveis pelas transições dos paineis
-    private final int cima, baixo = 2;
-    int contaLinhas = 0;
-    int esquerda = 1, direita = 2;
-    int contadorSelecao = 1;
+    private BluTVRemoteDevice blutvEventController;
 
     //Esse grupo armazenara todos os painéis e objetos que irão compor a cena
     private final Group grupoObjetosCenaPrincipal = new Group();
@@ -65,11 +60,10 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
 
     //URGÊNCIA SELECIONADA NA TABELA
     Urgencia urgenciaAtual = new Urgencia();
-    int scroll;
 
     //PAINEL TABELA
-    private final ComponenteTabela tabela = new ComponenteTabela();
-    private VBox painelTabela = new VBox();
+    private final ComponenteUrgencia urgencias = new ComponenteUrgencia();
+    private HBox painelTabela = new HBox();
 
     //PAINEL IMAGENS
     private ComponenteImagem imagemSobre = new ComponenteImagem();
@@ -80,23 +74,19 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     private HBox painelVideo = new HBox();
     private HBox painelVideoDescricao = new HBox();
     private Label descricaoUrgencia = new Label();
-    private MediaView ivVideo = null;
+    private MediaView mediaView = null;
+    private MediaPlayer mediaPlayer = null;
 
     //COMPONENTES
     private final ComponenteConfiguradorImagens imagem = new ComponenteConfiguradorImagens();
     private final ComponenteLegenda legenda = new ComponenteLegenda();
     private final ComponenteAudio audioNavigation = new ComponenteAudio();
-    private final ComponenteControlador controler = new ComponenteControlador();
 
     //MARCADORES DAS TELAS
     private int telaAtual, telaPrincipal, telaComoProceder, telaVideo;
 
     public static void main(String[] args) throws IOException {
         launch(args);
-    }
-
-    public BluTVEmCasosDeUrgenciaApp() {
-        this.cima = 1;
     }
 
     @Override
@@ -119,7 +109,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         telaVideo = 3;
 
         //Adiciona Objetos e painéis que irão compor a aplicação  no  grupo
-        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelNomelUrgencia, painelLegendaPrincipal, painelTabela,painelNomelUrgenciaListView);
+        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelNomelUrgencia, painelLegendaPrincipal, painelTabela, painelNomelUrgenciaListView);
 
         //inicializa a cena passando os Objetos e as dimensões da tela
         cena = new Scene(grupoObjetosCenaPrincipal, larguraTela, alturaTela);
@@ -165,8 +155,8 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         painelNomelUrgenciaListView.getChildren().addAll(nomeUrgencia);
         painelLegendaPrincipal = legenda.constroiPainelLegendaPrincipal(larguraTela, alturaTela);
 
-        painelTabela = tabela.constroiPainelTabela((double) larguraTela, (double) alturaTela);
-        preparaTabelaComUrgencias();
+        painelTabela = urgencias.constroiPainelLista((double) larguraTela, (double) alturaTela);
+        preparaListaUrgencias();
 
         painelLegendaComoProceder = legenda.constroiPainelLegendaComoProceder(larguraTela, alturaTela);
         painelLegendaVideo = legenda.constroiPainelLegendaVideo(larguraTela, alturaTela);
@@ -174,11 +164,10 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
     }
 
     //PREPARA A TABELA DAS URGÊNCIAS
-    private void preparaTabelaComUrgencias() {
-        tabela.recebeTodasUrgencias();
-        tabela.table.getSelectionModel().selectFirst();
+    private void preparaListaUrgencias() {
+        urgencias.recebeImagemUrgencias();
+        urgencias.listaUrgencias.getSelectionModel().selectFirst();
         getUrgenciaListView();
-
     }
 
     //AJUSTA A POSIÇÃO DOS PAINÉIS NA TELA
@@ -199,10 +188,10 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
 
         painelLegendaVideo.setLayoutX(larguraTela * 0.3);
         painelLegendaVideo.setLayoutY(alturaTela * 0.9);
-        
+
         painelVideoDescricao.setLayoutY(alturaTela * 0.30);
         painelVideoDescricao.setLayoutX(larguraTela * 0.50);
-        
+
     }
 
     //AJUSTA O TAMANHO DOS PAINÉIS NA TELA
@@ -210,7 +199,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
 
         painelNomelUrgencia.setMinWidth(larguraTela * 0.6);
         painelNomelUrgencia.setMinHeight(alturaTela * 0.15);
-        
+
         painelLegendaPrincipal.setMinWidth(larguraTela * 0.05);
         painelLegendaPrincipal.setMinHeight(alturaTela * 0.06);
 
@@ -219,7 +208,7 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
 
         painelVideo.setMinWidth(larguraTela * 0.3);
         painelVideo.setMinHeight(alturaTela * 0.3);
-       
+
         painelLegendaVideo.setMinWidth(larguraTela * 0.05);
         painelLegendaVideo.setMinHeight(alturaTela * 0.06);
 
@@ -261,7 +250,6 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
             }
         });
     }
@@ -271,19 +259,14 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
                 if (telaAtual == telaPrincipal) {
                     getUrgenciaSelecionada();
-                    invocaTelaComoProceder();
-                    tabela.table.getSelectionModel().select(0);
-                    
-                    telaAtual = telaComoProceder;
+                    invocaTelaComoProceder();telaAtual = telaComoProceder;
                 } else if (telaAtual == telaVideo) {
                     resetaPainelVideo();
                     invocaTelaComoProceder();
                     telaAtual = telaComoProceder;
                 }
-
             }
         });
     }
@@ -293,28 +276,25 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
                 if (telaAtual == telaPrincipal) {
-
                     getUrgenciaSelecionada();
                     invocaTelaVideo();
-                    tabela.table.getSelectionModel().select(0);
-
                     telaAtual = telaVideo;
                 } else if (telaAtual == telaComoProceder) {
-
                     invocaTelaVideo();
                     telaAtual = telaVideo;
-
-                } else if (ivVideo.getMediaPlayer().getStatus() == MediaPlayer.Status.PLAYING) {
-
-                    ivVideo.getMediaPlayer().pause();
-                } else if (ivVideo.getMediaPlayer().getStatus() == MediaPlayer.Status.PAUSED) {
-
-                    ivVideo.getMediaPlayer().play();
-                } else if (ivVideo.getMediaPlayer().getStatus() == MediaPlayer.Status.STOPPED) {
-
-                    ivVideo.getMediaPlayer().play();
+                } else if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                    if(mediaPlayer.currentTimeProperty() == mediaPlayer.stopTimeProperty()) {
+                        mediaPlayer.seek(Duration.seconds(1));
+                        mediaPlayer.play();
+                    }
+                    else {
+                        mediaPlayer.pause();
+                    }
+                } else if (mediaPlayer.getStatus() == MediaPlayer.Status.PAUSED) {
+                    mediaPlayer.play();
+                } else if (mediaPlayer.getStatus() == MediaPlayer.Status.STOPPED) {
+                    mediaPlayer.play();
                 }
             }
         });
@@ -326,8 +306,8 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                ivVideo.getMediaPlayer().pause();
-                ivVideo.getMediaPlayer().seek(Duration.seconds(1));
+                mediaPlayer.pause();
+                mediaPlayer.seek(Duration.seconds(1));
             }
         });
 
@@ -349,15 +329,15 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
             @Override
             public void run() {
 
-                int menuSize = tabela.table.getItems().size();
-                int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
+                int menuSize = urgencias.listaUrgencias.getItems().size();
+                int selectedIndex = urgencias.listaUrgencias.getSelectionModel().getSelectedIndex();
 
                 if (telaAtual == telaPrincipal) {
                     if (selectedIndex == 0) {
-                        tabela.table.getSelectionModel().select(menuSize - 1);
+                        urgencias.listaUrgencias.getSelectionModel().select(menuSize - 1);
                         getUrgenciaListView();
                     } else {
-                        tabela.table.getSelectionModel().selectPrevious();
+                        urgencias.listaUrgencias.getSelectionModel().selectPrevious();
                         getUrgenciaListView();
                     }
 
@@ -375,10 +355,9 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
             public void run() {
 
                 if (telaAtual == telaPrincipal) {
-
                     getUrgenciaSelecionada();
                     invocaTelaVideo();
-                    tabela.table.getSelectionModel().select(0);
+                    //urgencias.listaUrgencias.getSelectionModel().select(0);
 
                     telaAtual = telaVideo;
                 }
@@ -394,15 +373,15 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
             @Override
             public void run() {
 
-                int menuSize = tabela.table.getItems().size();
-                int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
+                int menuSize = urgencias.listaUrgencias.getItems().size();
+                int selectedIndex = urgencias.listaUrgencias.getSelectionModel().getSelectedIndex();
 
                 if (telaAtual == telaPrincipal) {
                     if (selectedIndex >= (menuSize - 1)) {
-                        tabela.table.getSelectionModel().select(0);
+                        urgencias.listaUrgencias.getSelectionModel().select(0);
                         getUrgenciaListView();
                     } else {
-                        tabela.table.getSelectionModel().selectNext();
+                        urgencias.listaUrgencias.getSelectionModel().selectNext();
                         getUrgenciaListView();
                     }
 
@@ -617,100 +596,110 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         ajustaPosicaoPaineis();
         ajustaTamanhoPaineis();
         getUrgenciaListView();
-        
+
         grupoObjetosCenaPrincipal.getChildren().clear();
         planoFundo = imagem.getImage("image0.jpg", larguraTela, alturaTela, false);
-        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelLegendaPrincipal, painelTabela,painelNomelUrgenciaListView);
+        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelLegendaPrincipal, painelTabela, painelNomelUrgenciaListView);
 
     }
 
-    //INVOCA A TELA DO VÍDEO    
+    //INVOCA A TELA DO VÍDEO   
+    /*
+     * Exibe o vídeo da Urgência selecionada
+     * 
+     * @see Urgencia
+     * @see MediaView
+     * 
+     */
     private void invocaTelaVideo() {
-
         resetaPainelVideo();
         nomeUrgencia();
         descricaoUrgencia();
-       
-        ivVideo = videoSobre.retornaVideo(urgenciaAtual, (larguraTela * 0.65), (alturaTela * 0.35));
-        ivVideo.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
-        painelVideo.getChildren().add(ivVideo);
+
+        mediaView = videoSobre.retornaVideo(urgenciaAtual, (larguraTela * 0.65), (alturaTela * 0.35));
+        mediaPlayer = mediaView.getMediaPlayer();
+        //ivVideo.getMediaPlayer().setCycleCount(MediaPlayer.INDEFINITE);
+        painelVideo.getChildren().add(mediaView);
 
         painelVideoDescricao.getChildren().add(descricaoUrgencia);
-      
+
         grupoObjetosCenaPrincipal.getChildren().clear();
         planoFundo = imagem.getImage("image02.jpg", larguraTela, alturaTela, false);
-        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelNomelUrgencia, painelLegendaVideo, painelVideo,painelVideoDescricao);
+        grupoObjetosCenaPrincipal.getChildren().addAll(planoFundo, painelNomelUrgencia, painelLegendaVideo, painelVideo, painelVideoDescricao);
 
     }
 
     //RECUPERA A URGÊNCIA SELECIONADA
     private void getUrgenciaSelecionada() {
-        Urgencia urgencia = controler.getUrgenciaSelecionada(tabela.table.getSelectionModel().getSelectedItem().getNome().getText());
-        urgenciaAtual = urgencia;
+        urgenciaAtual = urgencias.listaUrgencias.getSelectionModel().getSelectedItem();
     }
-    
+
     //RECUPERA A URGÊNCIA SELECIONADA NO LIST VIEW
     private void getUrgenciaListView() {
-      
-        int menuSize = tabela.table.getItems().size();
-        int selectedIndex = tabela.table.getSelectionModel().getSelectedIndex();
-        String nome = tabela.table.getSelectionModel().getSelectedItem().getNome().getText();
-  
+
+        int menuSize = urgencias.listaUrgencias.getItems().size();
+        int selectedIndex = urgencias.listaUrgencias.getSelectionModel().getSelectedIndex();
+        String nome = urgencias.listaUrgencias.getSelectionModel().getSelectedItem().getNome();
+
         painelNomelUrgenciaListView.setMinWidth(larguraTela * 0.15);
         painelNomelUrgenciaListView.setMinHeight(alturaTela * 0.05);
-        
+
         painelNomelUrgenciaListView.setStyle("-fx-background-color: transparent");
         painelNomelUrgenciaListView.setAlignment(Pos.CENTER);
-        
+
         nomeUrgencia.setFont(Font.font("Trebuchet MS", 30));
         nomeUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #625d5e");
-        
-        if (selectedIndex == 0) {
-           nomeUrgencia.setText(nome);
-           painelNomelUrgenciaListView.setLayoutY(alturaTela* 0.69);
-           painelNomelUrgenciaListView.setLayoutX(larguraTela* 0.07);
-           
-       
-        } else if (selectedIndex == 1) {
-           nomeUrgencia.setText(nome);      
-           painelNomelUrgenciaListView.setLayoutY(alturaTela* 0.69);
-           painelNomelUrgenciaListView.setLayoutX(larguraTela* 0.24);
-            
-        } else if (selectedIndex == 2) {
-           nomeUrgencia.setText(nome);             
-           painelNomelUrgenciaListView.setLayoutY(alturaTela* 0.69);
-           painelNomelUrgenciaListView.setLayoutX(larguraTela* 0.42);
 
-        } else if (selectedIndex== 3) {
-           nomeUrgencia.setText(nome);          
-           painelNomelUrgenciaListView.setLayoutY(alturaTela* 0.69);
-           painelNomelUrgenciaListView.setLayoutX(larguraTela* 0.60);
+        if (selectedIndex == 0) {
+            nomeUrgencia.setText(nome);
+            painelNomelUrgenciaListView.setLayoutY(alturaTela * 0.72);
+            painelNomelUrgenciaListView.setLayoutX(larguraTela * 0.07);
+
+        } else if (selectedIndex == 1) {
+            nomeUrgencia.setText(nome);
+            painelNomelUrgenciaListView.setLayoutY(alturaTela * 0.72);
+            painelNomelUrgenciaListView.setLayoutX(larguraTela * 0.24);
+
+        } else if (selectedIndex == 2) {
+            nomeUrgencia.setText(nome);
+            painelNomelUrgenciaListView.setLayoutY(alturaTela * 0.72);
+            painelNomelUrgenciaListView.setLayoutX(larguraTela * 0.42);
+
+        } else if (selectedIndex == 3) {
+            nomeUrgencia.setText(nome);
+            painelNomelUrgenciaListView.setLayoutY(alturaTela * 0.72);
+            painelNomelUrgenciaListView.setLayoutX(larguraTela * 0.60);
 
         } else if (selectedIndex == 4) {
-           nomeUrgencia.setText(nome);
-           painelNomelUrgenciaListView.setLayoutY(alturaTela* 0.69);
-           painelNomelUrgenciaListView.setLayoutX(larguraTela* 0.76);
+            nomeUrgencia.setText(nome);
+            painelNomelUrgenciaListView.setLayoutY(alturaTela * 0.72);
+            painelNomelUrgenciaListView.setLayoutX(larguraTela * 0.76);
         }
     }
-    
+
     //RECUPERA O NOME DA URGÊNCIA
+    /**
+     * Define da urgência e posiciona no
+     *
+     * @return nome
+     * @see Urgencia
+     */
     private void nomeUrgencia() {
-        
         labelUrgencia.setText(urgenciaAtual.getNome());
         labelUrgencia.setFont(Font.font("Trebuchet MS", 80));
         labelUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #625d5e");
-        labelUrgencia.setPadding(new Insets(10,10,10,10));
-        
+        labelUrgencia.setPadding(new Insets(10, 10, 10, 10));
+
         painelNomelUrgencia.setLayoutX((larguraTela - painelNomelUrgencia.getWidth()) / 2);
         painelNomelUrgencia.setLayoutY(alturaTela * 0.1);
         painelNomelUrgencia.setStyle("-fx-background-color: rgba(131,191,208,0.5); -fx-background-radius: 30 30 30 30");
         painelNomelUrgencia.setAlignment(Pos.CENTER);
-           
+
     }
-    
+
     //RECUPERA UMA DESCRICICAO PARA A URGENCIA
-    private void descricaoUrgencia(){
-        
+    private void descricaoUrgencia() {
+
         descricaoUrgencia.setText(urgenciaAtual.getDescricao());
         descricaoUrgencia.setFont(Font.font("Trebuchet MS", 20));
         descricaoUrgencia.setStyle("-fx-font-weight: bold; -fx-text-fill: #625d5e");
@@ -718,36 +707,41 @@ public class BluTVEmCasosDeUrgenciaApp extends Application implements BluTVRemot
         descricaoUrgencia.setMaxHeight(400);
         descricaoUrgencia.setWrapText(true);
         descricaoUrgencia.setTextAlignment(TextAlignment.JUSTIFY);
-        descricaoUrgencia.setPadding(new Insets(10,10,50,10));
-        
+        descricaoUrgencia.setPadding(new Insets(10, 10, 50, 10));
+
     }
-               
+
     //RESETA O PAINEL DA IMAGEM COMO PROCEDER E ATUALIZA COM A NOVA SELECIONADA
     private void resetaPainelImagem() {
-        
-        painelImagem.getChildren().clear();  
+
+        painelImagem.getChildren().clear();
         painelImagem = imagemSobre.constroiPainelImagens((larguraTela), (alturaTela), urgenciaAtual);
         painelImagem.setLayoutY(alturaTela * 0.30);
-        painelImagem.setLayoutX(larguraTela *0.12);
+        painelImagem.setLayoutX(larguraTela * 0.12);
         painelImagem.setStyle("-fx-background-color: rgba(131,191,208,0.5); -fx-background-radius: 30 30 30 30");
-        
+
     }
 
     //RESETA O PAINEL DO VÍDEO E ATUALIZA COM O NOVO DE ACORDO COM A URGÊNCIA SELECIONADA
     private void resetaPainelVideo() {
-
         painelVideo.getChildren().clear();
         painelVideo.setStyle("-fx-background-color: black");
-        painelVideo.setPadding(new Insets(10,10,10,10));
-        
+        painelVideo.setPadding(new Insets(10, 10, 10, 10));
+
         painelVideoDescricao.getChildren().clear();
         painelVideoDescricao.setStyle("-fx-background-color: rgba(131,191,208,0.5); -fx-background-radius: 30 30 30 30");
 
-        if (ivVideo != null) {
-            ivVideo.getMediaPlayer().stop();
-        }   
+        if (mediaView != null) {
+            mediaView.getMediaPlayer().stop();
+        }
     }
-    
+
+    /**
+     * Ação do botão APP
+     *
+     * @param rde Evento do dispositivo
+     * @throws UnsupportedOperationException Quando dispositivo não suportado.
+     */
     public void BluTVRemoteDeviceButtonApp(RemoteDeviceEvent rde) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

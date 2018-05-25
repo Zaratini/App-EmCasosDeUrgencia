@@ -6,7 +6,6 @@ import javafx.scene.layout.HBox;
 
 // CLASSE RESPONSÁVE POR CONFIGURAR O PAINEL DA IMAGEM DA TELA COMO PROCEDER
 public class ComponenteImagem {
-
     final ImageView imv = new ImageView();
     final HBox painelImagem = new HBox();
 

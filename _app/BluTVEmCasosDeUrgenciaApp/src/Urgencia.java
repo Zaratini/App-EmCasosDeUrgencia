@@ -1,7 +1,6 @@
 
 // CLASSE RESPOSÁVEL POR FORNECER OS OBJETOS URGÊNCIA
 public class Urgencia {
-
     private int idUrgencia;
     private String nome;
     private String imagem;

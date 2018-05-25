@@ -3,15 +3,13 @@ import java.util.ArrayList;
 
 // CLASSE RESPONSÁVEL POR ATRIBUIR AS INFORMAÇÕES DO XML Á OBJETOS EM MEMÓRIA
 public class ComponenteControlador {
-
-    ArrayList<Urgencia> listaObjUrgencias = new ArrayList<>();
+    ArrayList<Urgencia> listaUrgencias = new ArrayList<>();
 
     public ComponenteControlador() {
-
-        constroiObjetosUrgencias();
+        constroiListaUrgencias();
     }
 
-    private void constroiObjetosUrgencias() {
+    private void constroiListaUrgencias() {
         BluTVXMLParser aplicacao = new BluTVXMLParser("Resident", "45", "18", "data0.xml");
         String[] id = aplicacao.returnValuesList("urgencia", "idUrgencia");
         String[] nome = aplicacao.returnValuesList("urgencia", "nome");
@@ -30,29 +28,12 @@ public class ComponenteControlador {
             urgenciaAtual.setImgComoProceder(imgComoProceder[i]);
             urgenciaAtual.setVideo(video[i]);
 
-            listaObjUrgencias.add(urgenciaAtual);
+            listaUrgencias.add(urgenciaAtual);
         }
 
     }
 
-    public ArrayList<Urgencia> getListaObjUrgencias() {
-        return listaObjUrgencias;
-    }
-
-    public void setListaObjUrgencia(ArrayList<Urgencia> listaObjUrgencias) {
-        this.listaObjUrgencias = listaObjUrgencias;
-    }
-
-    public Urgencia getUrgenciaSelecionada(String nomeUrgencia) {
-        Urgencia urgenciaAtual = new Urgencia();
-
-        for (int i = 0; i < listaObjUrgencias.size(); i++) {
-
-            if (listaObjUrgencias.get(i).getNome().equals(nomeUrgencia.trim())) {
-                urgenciaAtual = listaObjUrgencias.get(i);
-                return urgenciaAtual;
-            }
-        }
-        return urgenciaAtual;
+    public ArrayList<Urgencia> getListaUrgencias() {
+        return listaUrgencias;
     }
 }

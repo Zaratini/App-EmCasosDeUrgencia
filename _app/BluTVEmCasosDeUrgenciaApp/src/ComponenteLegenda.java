@@ -27,6 +27,12 @@ public class ComponenteLegenda {
         setasEsqDir = imagem.getImage("image12.png", 36, 14, true);
     }
 
+     /**
+     * Constroi Painel Legenda Principal
+     * @param largura Largura do painel
+     * @param altura Altura do painel
+     * @return VBox contendo a legenda principal
+     */
     public VBox constroiPainelLegendaPrincipal(double largura, double altura) {
 
         painelLegendaPrincipal.setMinWidth(largura);
