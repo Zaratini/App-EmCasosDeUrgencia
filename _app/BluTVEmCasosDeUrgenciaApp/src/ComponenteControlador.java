@@ -1,7 +1,11 @@
 
 import java.util.ArrayList;
 
-// CLASSE RESPONSÁVEL POR ATRIBUIR AS INFORMAÇÕES DO XML Á OBJETOS EM MEMÓRIA
+/**
+ * @description CLASSE RESPONSÁVEL POR ATRIBUIR AS INFORMAÇÕES DO XML Á OBJETOS EM MEMÓRIA
+ * @author Felipe Moraes
+ */
+
 public class ComponenteControlador {
     ArrayList<Urgencia> listaUrgencias = new ArrayList<>();
 

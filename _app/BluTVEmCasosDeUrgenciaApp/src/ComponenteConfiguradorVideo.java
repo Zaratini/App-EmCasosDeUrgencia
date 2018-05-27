@@ -3,7 +3,11 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
-// CLASSE RESPONSÁVEL PELA BUSCA E EXIBIÇÃO DE VÍDEOS
+/**
+ * @description CLASSE RESPONSÁVEL PELA BUSCA E EXIBIÇÃO DE VÍDEOS
+ * @author Felipe Moraes
+ */
+
 public class ComponenteConfiguradorVideo {
 
     private MediaView video;

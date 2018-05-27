@@ -1,5 +1,10 @@
 
-// CLASSE RESPOSÁVEL POR FORNECER OS OBJETOS URGÊNCIA
+/**
+ * @description CLASSE RESPOSÁVEL POR FORNECER OS OBJETOS URGÊNCIA
+ * @author Felipe Moraes
+ * @author Rodrigo Zaratini
+ */
+
 public class Urgencia {
     private int idUrgencia;
     private String nome;

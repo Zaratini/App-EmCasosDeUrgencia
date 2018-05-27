@@ -4,7 +4,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-// CLASSE RESPONSÁVE POR CONFIGURAR O PAINEL DA IMAGEM DA TELA COMO PROCEDER
+/**
+ * @description CLASSE RESPONSÁVE POR CONFIGURAR O PAINEL DA IMAGEM DA TELA COMO PROCEDER
+ * @author Felipe Moraes
+ */
+
 public class ComponenteImagem {
     final ImageView imv = new ImageView();
     final HBox painelImagem = new HBox();

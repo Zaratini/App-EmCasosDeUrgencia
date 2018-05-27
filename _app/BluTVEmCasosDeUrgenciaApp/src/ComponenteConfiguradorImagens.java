@@ -1,7 +1,11 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-//CLASSE RESPONSÁVEL PELA BUSCA DE IMAGENS
+/**
+ * @description CLASSE RESPONSÁVEL PELA BUSCA DE IMAGENS
+ * @author Felipe Moraes
+ */
+
 public class ComponenteConfiguradorImagens {
 
     private ImageView imagem;

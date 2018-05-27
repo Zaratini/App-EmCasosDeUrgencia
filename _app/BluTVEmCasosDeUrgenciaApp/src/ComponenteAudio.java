@@ -2,7 +2,11 @@
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-//CLASSE RESPONSÁVEL POR SELECIONAR O SOM EMITIDO PELA TABELA
+/**
+ * @description CLASSE RESPONSÁVEL POR SELECIONAR O SOM EMITIDO PELA TABELA
+ * @author Felipe Moraes
+ */
+
 public class ComponenteAudio {
 
     String audioSelecao = "file:///C:/blutv/channels/ch45/resident/applications/app18/audio/audio1.mp3";

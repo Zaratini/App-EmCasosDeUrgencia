@@ -3,12 +3,11 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 /**
- *
+ * @description CLASSE RESPONSÁVEL POR PEGAS AS DIMENSÕES DO MONITOR/TELA EM QUE A APLICAÇÃO SERÁ EXECUTADA
  * @author Rodrigo José de Souza Silva
  * @author João Benedito dos Santos Junior, Ph.D.
  */
 
-// CLASSE RESPONSÁVEL POR PEGAS AS DIMENSÕES DO MONITOR/TELA EM QUE A APLICAÇÃO SERÁ EXECUTADA
 public class UtilitarioDimensoesMonitor {
 
     private final Dimension dimensaoMonitor;

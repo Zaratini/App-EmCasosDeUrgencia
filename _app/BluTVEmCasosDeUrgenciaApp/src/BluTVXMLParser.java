@@ -3,7 +3,11 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
-//CLASSE RESPONSÁVEL POR RECUPERAR OS DADOS CONTIDOS NO XML
+/**
+ * @description CLASSE RESPONSÁVEL POR RECUPERAR OS DADOS CONTIDOS NO XML
+ * @author Felipe Moraes
+ */
+
 public class BluTVXMLParser {
 
     BluTVConfigurationDataToStart configData;

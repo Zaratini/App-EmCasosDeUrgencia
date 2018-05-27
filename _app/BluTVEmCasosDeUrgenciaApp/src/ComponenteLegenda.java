@@ -8,7 +8,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-// CLASSE RESPONSÁVEL POR MONTAR AS LEGENDAS DAS TELAS DA APLICAÇÃO
+/**
+ * @description CLASSE RESPONSÁVEL POR MONTAR AS LEGENDAS DAS TELAS DA APLICAÇÃO
+ * @author Felipe Moraes
+ * @author Rodrigo Zaratini
+ */
+
 public class ComponenteLegenda {
 
     private final VBox painelLegendaPrincipal = new VBox(5);
@@ -27,12 +32,6 @@ public class ComponenteLegenda {
         setasEsqDir = imagem.getImage("image12.png", 36, 14, true);
     }
 
-     /**
-     * Constroi Painel Legenda Principal
-     * @param largura Largura do painel
-     * @param altura Altura do painel
-     * @return VBox contendo a legenda principal
-     */
     public VBox constroiPainelLegendaPrincipal(double largura, double altura) {
 
         painelLegendaPrincipal.setMinWidth(largura);
@@ -55,21 +54,6 @@ public class ComponenteLegenda {
         
         circleVerde= new Circle(10);
         circleVerde.setFill(Color.GREEN);
-
-        // Retangulos
-        /*
-        Rectangle retanguloAzul,retanguloVermelho, retanguloVerde;
-      
-        retanguloAzul = new Rectangle(50, 20);
-        retanguloAzul.setFill(Color.DARKBLUE);
-        
-        retanguloVermelho= new Rectangle(50,20);
-        retanguloVermelho.setFill(Color.RED);
-        
-        retanguloVerde= new Rectangle(50,20);
-        retanguloVerde.setFill(Color.GREEN);
-        */      
-        
 
         Label labelAzul = new Label();
         Label labelVermelho = new Label();
@@ -112,18 +96,6 @@ public class ComponenteLegenda {
         
         circleVermelho= new Circle(10);
         circleVermelho.setFill(Color.RED);
-
-        
-        //Retangulos
-        /*
-        Rectangle retanguloAzul,retanguloVermelho;
-       
-        retanguloAzul = new Rectangle(50, 20);
-        retanguloAzul.setFill(Color.DARKBLUE);
-        
-        retanguloVermelho= new Rectangle(50,20);
-        retanguloVermelho.setFill(Color.RED);
-        */
 
         Label labelAzul = new Label();
         Label labelVermelho = new Label();
@@ -168,23 +140,6 @@ public class ComponenteLegenda {
         circleVerde= new Circle(10);
         circleVerde.setFill(Color.GREEN);
         
-        //Retangulos
-        /*
-        Rectangle retanguloAmarelo,retanguloAzul,retanguloVermelho,retanguloVerde;
-       
-        retanguloAmarelo = new Rectangle(50,20);
-        retanguloAmarelo.setFill(Color.YELLOW);
-       
-        retanguloAzul = new Rectangle(50, 20);
-        retanguloAzul.setFill(Color.DARKBLUE);
-
-        retanguloVermelho= new Rectangle(50,20);
-        retanguloVermelho.setFill(Color.RED);
-        
-        retanguloVerde = new Rectangle(50, 20);
-        retanguloVerde.setFill(Color.GREEN);
-        */
-
         Label labelAmarelo = new Label();
         Label labelAzul = new Label();
         Label labelVermelho = new Label();
